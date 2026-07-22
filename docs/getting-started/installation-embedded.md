@@ -1,9 +1,9 @@
 # Installing on an Embedded Device
 
-Edge Insights can run headless on an embedded Linux device — for example
-an arm64 industrial PC mounted next to the bus it monitors. In this role
-the stack runs continuously as systemd services and you use the portal
-from a browser on another machine on the same network.
+Edge Insights can run headless on an embedded Linux device, for example an
+arm64 industrial PC. The services run continuously in the background, and
+the portal is accessed from a browser on another machine on the same
+network.
 
 If you're installing on a desktop PC instead, see
 [Installing on Linux](installation-linux.md).

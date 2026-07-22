@@ -2,10 +2,10 @@
 
 Edge Insights runs on Linux in two ways:
 
-- **Desktop PC** — covered on this page: Edge Insights installs like any
-  other desktop application and is launched from your application menu.
-- **Embedded / headless device** — a device that monitors a bus
-  continuously, with the portal accessed over the network. See
+- **Desktop PC** — covered on this page. Edge Insights is installed as a
+  normal desktop application and started from the application menu.
+- **Embedded / headless device** — the device monitors a bus continuously
+  and the portal is accessed over the network. See
   [Installing on an embedded device](installation-embedded.md).
 
 ## Requirements
@@ -48,13 +48,12 @@ Edge Insights runs on Linux in two ways:
 
 ## Launch
 
-Start **Edge Insights** from your application menu (app grid, activities
-search, dock — wherever your desktop lists applications), like any other
-desktop application.
+Start **Edge Insights** from the application menu, like any other desktop
+application.
 
-The application starts the analytics stack and opens the portal in its own
-window. When you close the window, the services it started are stopped
-again — nothing keeps running in the background.
+The application starts the analytics services and opens the portal in its
+own window. When you close the window, the services it started are stopped
+again. Nothing keeps running in the background.
 
 ## Uninstall
 

@@ -1,7 +1,7 @@
 # Getting Started
 
-Before installing Edge Insights, make sure you have what your platform
-needs.
+Before installing Edge Insights, check the requirements for your
+platform.
 
 ## Windows
 
@@ -18,9 +18,9 @@ needs.
 - `systemd` with user services (`systemctl --user`)
 
 Linux builds are published for both x86_64 and arm64. On a desktop PC,
-Edge Insights installs as a regular desktop application; on an embedded or
-headless device it runs continuously as background services, with the
-portal reached over the network.
+Edge Insights is installed as a normal desktop application. On an embedded
+or headless device, it runs continuously as background services and the
+portal is accessed over the network.
 
 ## Next steps
 

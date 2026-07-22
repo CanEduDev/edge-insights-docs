@@ -7,19 +7,19 @@ release.
 
 ## Install
 
-Run the downloaded installer. A few things to know:
+Run the downloaded installer. Notes:
 
-- It installs per-user, into `%LOCALAPPDATA%\CanEduDev\EdgeInsights`. No
-  administrator rights are required for the Edge Insights install itself.
-- The installer checks for a Kvaser CAN driver and the Kvaser CANlib
-  runtime. If either is missing, it installs them for you automatically
-  (silently, in the background). Installing the Kvaser driver does require
-  administrator approval (a Windows UAC prompt) — this is the only step in
-  the install that needs elevated permissions.
-- If the Kvaser driver was just installed, a reboot may be required before
-  you can use your CAN interface for the first time. The installer will
-  prompt you to restart if needed.
-- You can optionally add a desktop shortcut during setup.
+- The application is installed per-user, into
+  `%LOCALAPPDATA%\CanEduDev\EdgeInsights`. No administrator rights are
+  required for the Edge Insights installation itself.
+- The installer checks for the Kvaser CAN driver and the Kvaser CANlib
+  runtime. If either is missing, it installs them automatically.
+  Installing the Kvaser driver requires administrator approval (a Windows
+  UAC prompt). This is the only step that needs elevated permissions.
+- If the Kvaser driver was installed, a reboot may be required before the
+  CAN interface can be used. The installer prompts for a restart if
+  needed.
+- A desktop shortcut can be added during setup (optional).
 
 ## Launch
 

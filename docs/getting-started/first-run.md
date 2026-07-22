@@ -2,30 +2,26 @@
 
 Once Edge Insights is installed, open the portal:
 
-- **Windows** — launch "Edge Insights" from the Start menu (or your
-  desktop shortcut). The application starts the stack and opens the portal
-  for you.
-- **Linux desktop** — launch "Edge Insights" from your application menu.
-  Like on Windows, the application starts the stack and opens the portal
-  in its own window.
-- **Embedded device** — open `http://<device-hostname-or-ip>:36300` from a
+- **Windows** — start "Edge Insights" from the Start menu or the desktop
+  shortcut. The application starts the services and opens the portal.
+- **Linux desktop** — start "Edge Insights" from the application menu.
+  The application starts the services and opens the portal in its own
+  window.
+- **Embedded device** — open `http://<device-hostname-or-ip>:36300` in a
   browser on another machine on the same network.
 
-## What to expect
+## Initial setup
 
-The portal walks you through a short setup on first launch:
+The portal guides you through a short setup on first launch:
 
-- **Welcome** — a quick introduction to the portal.
-- **CAN Settings** — select the CAN interface you want to capture from and
-  set its bitrate. See the [Portal Guide](../portal/can-settings.md) for
-  details.
+- **Welcome** — a short introduction to the portal.
+- **CAN Settings** — select the CAN interface to capture from and set its
+  bitrate. See [CAN Settings](../portal/can-settings.md) for details.
 - **DBC upload** — upload a DBC file so Edge Insights can decode raw CAN
   frames into named signals.
 
-No CAN hardware handy? You can still explore Edge Insights using bundled
-demo data via the [Import wizard](../portal/import-wizard.md) instead of a
-live bus.
+If no CAN hardware is connected, you can use the bundled demo data
+instead. See the [Import wizard](../portal/import-wizard.md).
 
-From here, the [Portal Guide](../portal/index.md) covers each part of the
-portal — CAN settings, importing data, and the Grafana dashboards — in more
-depth.
+The [Portal Guide](../portal/index.md) describes each part of the portal:
+CAN settings, importing data, and the Grafana dashboards.
