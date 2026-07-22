@@ -1,0 +1,119 @@
+site_name: Edge Insights Documentation
+site_description: Documentation for CanEduDev Edge Insights
+site_author: CanEduDev AB
+site_url: https://docs.cededgeinsights.com
+repo_url: https://github.com/CanEduDev/edge-insights-docs
+repo_name: CanEduDev/edge-insights-docs
+edit_uri: edit/main/docs/
+docs_dir: docs
+copyright: Copyright © 2026 CanEduDev AB
+
+theme:
+  name: material
+  logo: images/ced-logo-light.png
+  favicon: images/favicon.png
+  font: false # Fonts managed in stylesheets
+  features:
+    - content.code.annotate
+    - content.code.copy
+    - navigation.expand
+    - navigation.footer
+    - navigation.indexes
+    - navigation.instant
+    - navigation.sections
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    - navigation.tracking
+    - search.highlight
+    - search.share
+    - search.suggest
+    - toc.follow
+  palette:
+    # Automatic mode
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+    # Light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+
+plugins:
+  - search:
+      lang: en
+  - glightbox:
+
+extra:
+  homepage: https://canedudev.com
+  social:
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/company/canedudev
+    - icon: fontawesome/brands/discord
+      link: https://discord.gg/r45d624Tan
+
+  generator: false
+
+markdown_extensions:
+  # Code highlighting
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+
+  # Content features
+  - pymdownx.blocks.admonition
+  - pymdownx.blocks.details
+  - attr_list
+  - md_in_html
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - tables
+  - footnotes
+
+  # Typography
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.betterem
+  - abbr
+  - toc:
+      permalink: true
+      toc_depth: 3
+
+extra_css:
+  - stylesheets/web.css
+
+nav:
+  - Home:
+      - index.md
+      - Getting Started:
+          - getting-started/index.md
+          - getting-started/installation-windows.md
+          - getting-started/installation-linux.md
+          - getting-started/first-run.md
+  - Portal Guide:
+      - portal/index.md
+      - portal/can-settings.md
+      - portal/import-wizard.md
+      - portal/dashboards.md
+  - Troubleshooting:
+      - troubleshooting/index.md
+  - FAQ:
+      - faq/index.md
