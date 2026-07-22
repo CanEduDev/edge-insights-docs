@@ -1,5 +1,27 @@
 # Troubleshooting
 
+## Windows blocks the download or the installer
+
+Windows can show two separate warnings when you download or run the
+installer. Both are expected; click through them to continue.
+
+**Microsoft Edge blocks the download.** After the download finishes, Edge
+may show a warning that the file "isn't commonly downloaded" or "could be
+dangerous."
+
+1. Click the warning, then **Show more**.
+2. Click **Keep**.
+
+![Edge download warning](../images/troubleshooting/edge-download-warning.png)
+
+**Windows SmartScreen blocks the installer.** When you run the downloaded
+installer, Windows may show a blue "Windows protected your PC" screen.
+
+1. Click **More info**.
+2. Click **Run anyway**.
+
+![Windows SmartScreen warning](../images/troubleshooting/smartscreen-warning.png)
+
 ## CAN interface not found
 
 **Linux** — check which interfaces are available:
