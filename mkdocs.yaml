@@ -107,6 +107,7 @@ nav:
           - getting-started/index.md
           - getting-started/installation-windows.md
           - getting-started/installation-linux.md
+          - getting-started/installation-embedded.md
           - getting-started/first-run.md
   - Portal Guide:
       - portal/index.md

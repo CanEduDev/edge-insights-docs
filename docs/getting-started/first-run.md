@@ -3,9 +3,13 @@
 Once Edge Insights is installed, open the portal:
 
 - **Windows** — launch "Edge Insights" from the Start menu (or your
-  desktop shortcut). The launcher starts the stack and opens the portal
+  desktop shortcut). The application starts the stack and opens the portal
   for you.
-- **Linux** — open <http://localhost:36300> in your browser.
+- **Linux desktop** — launch "Edge Insights" from your application menu.
+  Like on Windows, the application starts the stack and opens the portal
+  in its own window.
+- **Embedded device** — open `http://<device-hostname-or-ip>:36300` from a
+  browser on another machine on the same network.
 
 ## What to expect
 

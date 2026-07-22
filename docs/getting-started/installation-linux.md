@@ -1,10 +1,17 @@
 # Installing on Linux
 
-This tarball installs the full stack as systemd `--user` services on a
-single Linux PC.
+Edge Insights runs on Linux in two ways:
+
+- **Desktop PC** — covered on this page: Edge Insights installs like any
+  other desktop application and is launched from your application menu.
+- **Embedded / headless device** — a device that monitors a bus
+  continuously, with the portal accessed over the network. See
+  [Installing on an embedded device](installation-embedded.md).
 
 ## Requirements
 
+- An x86_64 PC (arm64 builds are also available; see the
+  [embedded install page](installation-embedded.md))
 - Ubuntu 22.04+ or Debian 12+ (other systemd-based distributions may work
   but are untested)
 - `systemd` with user services (`systemctl --user`)
@@ -14,23 +21,24 @@ single Linux PC.
 
 ## Install
 
-1. Extract the tarball and enter the extracted directory (it contains
-   `install.sh`, `uninstall.sh`, `dist/`, and `systemd/`):
+1. Download the tarball for your architecture
+   (`edge-insights-<version>-linux-x86_64.tar.gz`), extract it, and enter
+   the extracted directory (it contains `install.sh`, `uninstall.sh`,
+   `dist/`, and `systemd/`):
 
    ```
    tar -xzf edge-insights-*-linux-*.tar.gz
    cd edge-insights-*-linux-*
    ```
 
-2. Run the installer. It copies the stack into your home directory and
-   registers the systemd `--user` services:
+2. Run the installer. It copies the stack into your home directory,
+   registers the background services, and adds **Edge Insights** to your
+   application menu:
 
    ```
-   sudo ./install.sh --start
+   sudo ./install.sh
    ```
 
-   - Omit `--start` to install without starting; start later with
-     `systemctl --user start analytics.target`.
    - Add `--with-vcan` to load the `vcan` kernel module during install
      (useful for a virtual test bus when no CAN hardware is attached).
 
@@ -38,46 +46,25 @@ single Linux PC.
    capability, so it can configure CAN interfaces on its own — no manual
    setup needed.
 
-3. Open the portal:
+## Launch
 
-   <http://localhost:36300>
+Start **Edge Insights** from your application menu (app grid, activities
+search, dock — wherever your desktop lists applications), like any other
+desktop application.
 
-   From there, select the CAN interface to capture and upload a DBC file
-   to start decoding signals.
-
-Other endpoints once the stack is running:
-
-- Grafana — <http://localhost:36301>
-- ReductStore — <http://localhost:36302>
-
-## Managing the stack
-
-Start or stop everything:
-
-```
-systemctl --user start analytics.target
-systemctl --user stop  analytics.target
-```
-
-Start automatically at boot (opt-in):
-
-```
-systemctl --user enable analytics.target
-```
-
-Follow the logs:
-
-```
-journalctl --user -u 'analytics-*' -f --no-hostname -o short-iso
-```
+The application starts the analytics stack and opens the portal in its own
+window. When you close the window, the services it started are stopped
+again — nothing keeps running in the background.
 
 ## Uninstall
+
+From the extracted tarball directory:
 
 ```
 sudo ./uninstall.sh
 ```
 
-This stops the services and removes the installed binaries. It prompts
+This stops the services and removes the installed application. It prompts
 before deleting your data (analytics database, uploaded DBC files,
 imported logs). To remove everything without prompting:
 

@@ -17,10 +17,17 @@ needs.
   but are untested)
 - `systemd` with user services (`systemctl --user`)
 
+Linux builds are published for both x86_64 and arm64. On a desktop PC,
+Edge Insights installs as a regular desktop application; on an embedded or
+headless device it runs continuously as background services, with the
+portal reached over the network.
+
 ## Next steps
 
 - [Install on Windows](installation-windows.md)
-- [Install on Linux](installation-linux.md)
+- [Install on Linux](installation-linux.md) — desktop PC
+- [Install on an embedded device](installation-embedded.md) — headless /
+  continuous monitoring
 
 Once installed, head to [First run](first-run.md) to open the portal and
 start capturing.
