@@ -58,8 +58,6 @@ extra:
   social:
     - icon: fontawesome/brands/linkedin
       link: https://www.linkedin.com/company/canedudev
-    - icon: fontawesome/brands/discord
-      link: https://discord.gg/r45d624Tan
 
   generator: false
 
@@ -104,7 +102,6 @@ nav:
   - Home:
       - index.md
       - Getting Started:
-          - getting-started/index.md
           - getting-started/installation-windows.md
           - getting-started/installation-linux.md
           - getting-started/installation-embedded.md
@@ -112,8 +109,10 @@ nav:
   - Portal Guide:
       - portal/index.md
       - portal/can-settings.md
-      - portal/import-wizard.md
+      - portal/analyzer-settings.md
       - portal/dashboards.md
+      - portal/import-log.md
+      - portal/export-log.md
   - Troubleshooting:
       - troubleshooting/index.md
   - FAQ:

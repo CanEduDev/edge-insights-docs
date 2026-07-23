@@ -10,57 +10,56 @@ If you're installing on a desktop PC instead, see
 
 ## Requirements
 
-- An arm64 or x86_64 device — tarballs are published for both
+- An arm64 or x86_64 device. Tarballs are published for both
   architectures
-- Ubuntu 22.04+ or Debian 12+ (other systemd-based distributions may work
-  but are untested)
+- Ubuntu 22.04+ or Debian 12+. Other systemd-based distributions may work
+  but are untested.
 - `systemd` with user services (`systemctl --user`)
-- The `can` kernel module (SocketCAN); also `vcan` if you want a virtual
+- The `can` kernel module, i.e. SocketCAN, also `vcan` if you want a virtual
   bus for testing without hardware
 - `sudo` / root access to run the installer
 
 ## Install
 
-1. Download the tarball for your architecture
-   (`edge-insights-<version>-linux-arm64.tar.gz` or
-   `...-linux-x86_64.tar.gz`), extract it, and enter the extracted
-   directory (it contains `install.sh`, `uninstall.sh`, `dist/`, and
-   `systemd/`):
+1. Download the tarball for your architecture,
+   `edge-insights-<version>-linux-arm64.tar.gz` or
+   `...-linux-x86_64.tar.gz`, extract it, and enter the extracted
+   directory. It contains `install.sh`, `uninstall.sh`, `dist/`, and
+   `systemd/`:
 
-   ```
-   tar -xzf edge-insights-*-linux-*.tar.gz
-   cd edge-insights-*-linux-*
-   ```
+    ```
+    tar -xzf edge-insights-*-linux-*.tar.gz
+    cd edge-insights-*-linux-*
+    ```
 
 2. Run the installer with `--start`. It copies the stack into your home
    directory, registers the systemd `--user` services, and starts them
-   immediately — no desktop session needed:
+   immediately:
 
-   ```
-   sudo ./install.sh --start
-   ```
+    ```
+    sudo ./install.sh --start
+    ```
 
-   - Omit `--start` to install without starting; start later with
-     `systemctl --user start analytics.target`.
-   - Add `--with-vcan` to load the `vcan` kernel module during install
-     (useful for a virtual test bus when no CAN hardware is attached).
+    - Omit `--start` to install without starting; start later with
+      `systemctl --user start analytics.target`.
+    - Add `--with-vcan` to load the `vcan` kernel module during install.
+      Useful for a virtual test bus when no CAN hardware is attached.
 
-   The installer also grants the CAN capture service the `CAP_NET_ADMIN`
-   capability, so it can configure CAN interfaces on its own — no manual
-   setup needed.
+    The installer also grants the CAN capture service the `CAP_NET_ADMIN`
+    capability, so it can configure CAN interfaces on its own.
 
 3. Open the portal from a browser on another machine on the same network:
 
-   `http://<device-hostname-or-ip>:36300`
+    `http://<device-hostname-or-ip>:36300`
 
-   (On the device itself it is also available at
-   <http://localhost:36300>.) From there, select the CAN interface to
-   capture and upload a DBC file to start decoding signals.
+    On the device itself it is also available at
+    <http://localhost:36300>. From there, select the CAN interface to
+    capture and upload a DBC file to start decoding signals.
 
 Other endpoints once the stack is running (same host, different ports):
 
-- Grafana — port `36301`
-- ReductStore — port `36302`
+- Grafana: port `36301`
+- ReductStore: port `36302`
 
 ## Managing the stack
 
@@ -90,8 +89,8 @@ sudo ./uninstall.sh
 ```
 
 This stops the services and removes the installed binaries. It prompts
-before deleting your data (analytics database, uploaded DBC files,
-imported logs). To remove everything without prompting:
+before deleting your data, e.g. analytics database, uploaded DBC files,
+imported logs. To remove everything without prompting:
 
 ```
 sudo ./uninstall.sh --purge
