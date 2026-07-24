@@ -45,6 +45,21 @@ Edge Insights runs on Linux in two ways:
     The installer also grants the CAN capture service the `CAP_NET_ADMIN`
     capability, so it can configure CAN interfaces on its own.
 
+## Network access
+
+By default the portal is reachable only from the device that's running it, at
+<http://localhost:36300>. This keeps Edge Insights off the local network.
+
+To open the portal from another machine on the same network, install with
+`--access network`:
+
+```
+sudo ./install.sh --access network
+```
+
+This binds the portal and the Grafana dashboards to all network interfaces.
+Use it only on a trusted network. The portal has no login.
+
 ## Launch
 
 Start **Edge Insights** from the application menu, like any other desktop
