@@ -113,6 +113,7 @@ nav:
       - portal/dashboards.md
       - portal/import-log.md
       - portal/export-log.md
+      - portal/support.md
   - API:
       - api/index.md
       - api/reference.md

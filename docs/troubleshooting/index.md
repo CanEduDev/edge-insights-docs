@@ -52,3 +52,9 @@ but they must not try to reconfigure it:
 If you need a tool to have exclusive control of the bus, e.g. to
 reconfigure bus parameters, stop capture first by toggling the bus off in
 the portal, then start your tool.
+
+## Still stuck
+
+Use [Help & Support](../portal/support.md) in the portal to send your
+application logs to CanEduDev support. You can also reach out to us at
+[support@canedudev.com](mailto:support@canedudev.com).

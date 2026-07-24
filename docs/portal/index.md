@@ -35,6 +35,9 @@ The sidebar groups the rest of the portal:
 - **Settings**: [CAN Settings](can-settings.md) and [Analyzer Settings](analyzer-settings.md).
 - **System**: Logs.
 
+The **[Help & Support](support.md)** button at the bottom of the sidebar
+opens the support flow from any page.
+
 ![Portal sidebar](../images/portal/home/sidebar.png)
 
 ## Licensing
