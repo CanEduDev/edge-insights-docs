@@ -233,3 +233,9 @@
     color: var(--canedudev-logo-blue);
   }
 }
+
+/* Keep inline code identifiers (error codes, param names) from breaking
+   mid-token inside table cells. */
+.md-typeset table:not([class]) td code {
+  white-space: nowrap;
+}
