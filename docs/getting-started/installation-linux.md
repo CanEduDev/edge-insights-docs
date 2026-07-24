@@ -60,6 +60,13 @@ sudo ./install.sh --access network
 This binds the portal and the Grafana dashboards to all network interfaces.
 Use it only on a trusted network. The portal has no login.
 
+The installer remembers this choice. Running it again without `--access` keeps
+the current mode. To switch back to local-only, run:
+
+```
+sudo ./install.sh --access local
+```
+
 ## Launch
 
 Start **Edge Insights** from the application menu, like any other desktop

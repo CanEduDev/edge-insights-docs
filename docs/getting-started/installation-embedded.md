@@ -44,6 +44,8 @@ If you're installing on a desktop PC instead, see
       network interfaces, so you can reach them from another machine. Without
       it the portal is reachable only on the device itself, at `localhost`.
       Use network access only on a trusted network. The portal has no login.
+      The installer remembers this choice, so you do not need to repeat the
+      flag when you install again.
     - Omit `--start` to install without starting. Start later with
       `systemctl --user start analytics.target`.
     - Add `--with-vcan` to load the `vcan` kernel module during install.
