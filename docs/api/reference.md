@@ -7,8 +7,12 @@ of the download endpoints.
 
 ## GET /api/v0/logs/interfaces { #logs-interfaces }
 
-List the interfaces that have downloadable log data. Every other endpoint on
-this page needs an `interface` value, so this is where a script starts.
+List the interfaces the unit knows about. Every other endpoint on this page
+needs an `interface` value, so this is where a script starts.
+
+The list covers interfaces with stored data and interfaces attached to the
+unit right now. A unit that has recorded nothing still reports the interfaces
+it can record from.
 
 This endpoint takes no query parameters.
 
@@ -16,10 +20,17 @@ This endpoint takes no query parameters.
 
 ```json
 [
-  { "interface": "can0", "entry": "can0", "raw": true, "decoded": true },
+  {
+    "interface": "can0",
+    "entry": "can0",
+    "state": "online",
+    "raw": true,
+    "decoded": true
+  },
   {
     "interface": "Kvaser USBcan Pro 5xHS [SN 10822] (channel 0)",
     "entry": "Kvaser_USBcan_Pro_5xHS_SN_10822_channel_0",
+    "state": "disconnected",
     "raw": true,
     "decoded": false
   }
@@ -31,14 +42,32 @@ This endpoint takes no query parameters.
 - `entry`: the sanitized storage key. It is the first part of export file
   names, and the interface name that appears inside candump lines. This value
   works as `interface` too.
+- `state`: whether the interface is attached to the unit right now. See
+  [Interface state](#interface-state).
 - `raw`: whether [`logs/raw`](#logs-raw) has data for this interface.
 - `decoded`: whether [`logs/decoded`](#logs-decoded) has data for this
   interface. This is `false` for every interface when no DBC file is
   configured.
 
-The list is sorted by `entry`. A unit that has recorded nothing returns `200`
-with an empty array. Unreachable storage returns `503`, so an empty array
-always means "nothing recorded", never "could not check".
+`raw` and `decoded` describe stored data, and `state` describes hardware. The
+two are independent. An `online` interface can hold no data yet, and a
+`disconnected` one is listed because it still holds data. When both `raw` and
+`decoded` are `false`, downloading that interface returns
+`404 unknown_interface`.
+
+The list is sorted by `entry`. A unit with no stored data and no attached
+interfaces returns `200` with an empty array. Unreachable storage returns
+`503`, so an empty array always means "nothing there", never "could not
+check".
+
+### Interface state { #interface-state }
+
+| Value | Meaning |
+| --- | --- |
+| `online` | Attached and bus-on. Recording can be running. |
+| `offline` | Attached but bus-off. Bring the interface up before it records. |
+| `disconnected` | Not attached, but data is stored under this name. The hardware was unplugged, or the data was imported. The stored data is still downloadable. |
+| `unknown` | The unit could not query its CAN backend, usually a missing or broken driver, so it cannot tell whether the interface is attached. |
 
 The list carries no timestamps. To find the stored time range of one
 interface, call [`raw/estimate`](#logs-estimate) without `from` and `to`, then

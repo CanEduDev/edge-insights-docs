@@ -110,7 +110,7 @@ other endpoint needs.
 
 | Endpoint | What it returns |
 | --- | --- |
-| [`GET /api/v0/logs/interfaces`](reference.md#logs-interfaces) | Interfaces that have downloadable log data |
+| [`GET /api/v0/logs/interfaces`](reference.md#logs-interfaces) | Interfaces with stored data or attached now, and their state |
 | [`GET /api/v0/logs/raw`](reference.md#logs-raw) | Raw CAN frames, as a compact binary stream or as candump text |
 | [`GET /api/v0/logs/decoded`](reference.md#logs-decoded) | DBC-decoded signals, as a binary stream |
 | [`GET /api/v0/logs/raw/estimate`](reference.md#logs-estimate) | Export size estimate and slice boundaries for a range |
