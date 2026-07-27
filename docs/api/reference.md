@@ -5,6 +5,55 @@ This page documents each `/api/v0` endpoint in turn. See the
 model, the timestamp format, and the shared streaming and retention behavior
 of the download endpoints.
 
+## GET /api/v0/logs/interfaces { #logs-interfaces }
+
+List the interfaces that have downloadable log data. Every other endpoint on
+this page needs an `interface` value, so this is where a script starts.
+
+This endpoint takes no query parameters.
+
+### Response
+
+```json
+[
+  { "interface": "can0", "entry": "can0", "raw": true, "decoded": true },
+  {
+    "interface": "Kvaser USBcan Pro 5xHS [SN 10822] (channel 0)",
+    "entry": "Kvaser_USBcan_Pro_5xHS_SN_10822_channel_0",
+    "raw": true,
+    "decoded": false
+  }
+]
+```
+
+- `interface`: the name the unit shows. Pass this value as the `interface`
+  query parameter on the other endpoints.
+- `entry`: the sanitized storage key. It is the first part of export file
+  names, and the interface name that appears inside candump lines. This value
+  works as `interface` too.
+- `raw`: whether [`logs/raw`](#logs-raw) has data for this interface.
+- `decoded`: whether [`logs/decoded`](#logs-decoded) has data for this
+  interface. This is `false` for every interface when no DBC file is
+  configured.
+
+The list is sorted by `entry`. A unit that has recorded nothing returns `200`
+with an empty array. Unreachable storage returns `503`, so an empty array
+always means "nothing recorded", never "could not check".
+
+The list carries no timestamps. To find the stored time range of one
+interface, call [`raw/estimate`](#logs-estimate) without `from` and `to`, then
+read `first_record_us`.
+
+```bash
+curl -fs 'http://localhost:36300/api/v0/logs/interfaces'
+```
+
+### Errors
+
+| Status | Error code | Meaning |
+| --- | --- | --- |
+| `503` | `unavailable` | The storage backend is unreachable. |
+
 ## GET /api/v0/logs/raw { #logs-raw }
 
 Download recorded raw CAN frames over a time range, as a compact binary
@@ -27,11 +76,11 @@ and retention behavior.
 
 ```bash
 # Everything recorded for can0, as the binary stream:
-curl -fO 'http://unit:36300/api/v0/logs/raw?interface=can0'
+curl -fO 'http://localhost:36300/api/v0/logs/raw?interface=can0'
 
 # A Kvaser interface. URL-encode the description:
 curl -f -o kvaser.zst \
-  'http://unit:36300/api/v0/logs/raw?interface=Kvaser%20USBcan%20Pro%205xHS%20%5BSN%2010822%5D%20(channel%200)'
+  'http://localhost:36300/api/v0/logs/raw?interface=Kvaser%20USBcan%20Pro%205xHS%20%5BSN%2010822%5D%20(channel%200)'
 ```
 
 ### Output formats
@@ -66,7 +115,7 @@ binary form, so the body is compressed on the wire based on your
 ```bash
 # One hour of can0 as a plain candump log, compressed on the wire:
 curl -f --compressed -o can0.log \
-  'http://unit:36300/api/v0/logs/raw?interface=can0&format=log&from=1752700000000000&to=1752703600000000'
+  'http://localhost:36300/api/v0/logs/raw?interface=can0&format=log&from=1752700000000000&to=1752703600000000'
 ```
 
 The interface name inside each line is a sanitized key. Kvaser descriptions
@@ -122,7 +171,7 @@ binary frames yourself.
 
 ```bash
 curl -f -o decoded.zst \
-  'http://unit:36300/api/v0/logs/decoded?interface=can0&from=1752700000000000&to=1752703600000000'
+  'http://localhost:36300/api/v0/logs/decoded?interface=can0&from=1752700000000000&to=1752703600000000'
 ```
 
 ### Errors
@@ -156,13 +205,22 @@ of a time-range picker.
 
 ```json
 {
-  "records": 3600, "frames": 6100000,
+  "entry": "can0", "first_record_us": 1752700000000000,
+  "frames": 6100000,
   "stored_bytes": 36000000, "uncompressed_bytes": 146000000,
   "estimated_output_bytes": 321000000,
   "max_file_bytes": 2147483648,
   "cut_points_us": []
 }
 ```
+
+`first_record_us` is the timestamp of the first record in the range. It is
+`null` when the range holds nothing, so check it before you start a download.
+Call the endpoint without `from` and `to` to find the oldest data the unit
+still holds for that interface.
+
+`entry` is the sanitized storage key, the same value
+[`logs/interfaces`](#logs-interfaces) returns.
 
 `estimated_output_bytes` is the size to show a user before they start a
 download. `max_file_bytes` is the unit's configured per-file limit (default

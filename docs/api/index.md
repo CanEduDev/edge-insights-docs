@@ -34,6 +34,10 @@ Insights, or the unit's hostname or IP address from another machine on the
 network. If you have changed the portal port with `PORTAL_PORT`, use that
 port instead.
 
+The examples on these pages use `localhost`, so you can copy and run them
+as they are on the unit itself. From another machine, replace `localhost`
+with the unit's address.
+
 ## Authentication
 
 The Beta API has no authentication. Anyone who can reach port `36300` can
@@ -88,7 +92,7 @@ nothing is skipped and only the missing remainder is sent:
 
 ```bash
 curl -f -o part2.zst \
-  'http://unit:36300/api/v0/logs/raw?interface=can0&from=1752700123000000'
+  'http://localhost:36300/api/v0/logs/raw?interface=can0&from=1752700123000000'
 cat part1-good-prefix.zst part2.zst | zstd -d > full.bin
 ```
 
@@ -101,8 +105,12 @@ from "never recorded".
 
 ## Endpoints
 
+Start with `logs/interfaces`. It gives you the interface names that every
+other endpoint needs.
+
 | Endpoint | What it returns |
 | --- | --- |
+| [`GET /api/v0/logs/interfaces`](reference.md#logs-interfaces) | Interfaces that have downloadable log data |
 | [`GET /api/v0/logs/raw`](reference.md#logs-raw) | Raw CAN frames, as a compact binary stream or as candump text |
 | [`GET /api/v0/logs/decoded`](reference.md#logs-decoded) | DBC-decoded signals, as a binary stream |
 | [`GET /api/v0/logs/raw/estimate`](reference.md#logs-estimate) | Export size estimate and slice boundaries for a range |
