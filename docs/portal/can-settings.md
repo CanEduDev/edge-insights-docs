@@ -50,9 +50,9 @@ CAN IDs not covered by the DBC file, the baseline allowlist, or this list
 are flagged as foreign traffic. IDs from an uploaded DBC file are added
 automatically; add or remove IDs manually here.
 
-IDs learned during baseline Teach mode are listed separately below.
-Removing one drops it from the Detect-phase allowlist, and the change is
-permanent until the next Restart Teach (see [Baseline](#baseline)).
+IDs learned into the baseline are listed separately below. Removing one
+drops it from the Detect-phase allowlist, and the change is permanent
+until baseline learning is restarted (see [Baseline](#baseline)).
 
 ![Known CAN IDs card](../images/portal/can-settings/known-ids-card.png)
 
