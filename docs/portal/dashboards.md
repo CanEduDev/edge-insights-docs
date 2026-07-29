@@ -122,7 +122,7 @@ change still show the value they were judged against.
 ### Foreign ID
 
 A foreign ID is a CAN ID that is not defined in the loaded DBC file, not
-learned during baseline Teach mode, and not listed under
+learned into the baseline, and not listed under
 [Known CAN IDs](can-settings.md#known-can-ids). It can mean a new or
 misconfigured ECU, a device left connected from an earlier test, or
 traffic that does not belong on the bus.
