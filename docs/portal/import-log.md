@@ -16,7 +16,10 @@ files; the other formats carry classic CAN only.
 
 ## 2. Interface & bitrate
 
-Choose the interface to import into and its bitrate.
+Choose the interface to import into and its bitrate. Turn on **J1939
+Mode** if the log came from a J1939 bus. The setting is independent of the
+DBC choice in step 4, and it applies with or without a DBC file. Demo data
+is classic CAN, so the option is disabled for it.
 
 ![Import Log: Interface & bitrate](../images/portal/import-log/02-interface.png)
 
@@ -30,7 +33,9 @@ every frame so the last one lands at "now". Useful for demos.
 ## 4. DBC file (optional)
 
 Keep the interface's current DBC file, upload a new one, or import with no
-DBC. Demo data always uses its bundled DBC.
+DBC. Choosing **Upload a new DBC file** adds a file picker below the
+options, as shown below. Demo data always uses its bundled DBC, so it
+offers no choice here.
 
 ![Import Log: DBC file](../images/portal/import-log/04-dbc.png)
 

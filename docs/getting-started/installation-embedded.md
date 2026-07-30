@@ -32,12 +32,13 @@ If you're installing on a desktop PC instead, see
     cd edge-insights-*-linux-*
     ```
 
-2. Run the installer with `--start --access network`. It copies the stack
-   into your home directory, registers the systemd `--user` services, starts
-   them immediately, and makes the portal reachable over the network:
+2. Run the installer with `--start --access network --boot-autostart`. It
+   copies the stack into your home directory, registers the systemd `--user`
+   services, starts them immediately, makes the portal reachable over the
+   network, and brings the stack back up after every reboot:
 
     ```
-    sudo ./install.sh --start --access network
+    sudo ./install.sh --start --access network --boot-autostart
     ```
 
     - `--access network` binds the portal and the Grafana dashboards to all
@@ -46,6 +47,10 @@ If you're installing on a desktop PC instead, see
       Use network access only on a trusted network. The portal has no login.
       The installer remembers this choice, so you do not need to repeat the
       flag when you install again.
+    - `--boot-autostart` starts the stack when the device boots, with nobody
+      logged in. Use it for a device that should keep recording on its own.
+      Without it, nothing starts until you start it. The installer remembers
+      this choice too. Use `--no-boot-autostart` to turn it off again.
     - Omit `--start` to install without starting. Start later with
       `systemctl --user start analytics.target`.
     - Add `--with-vcan` to load the `vcan` kernel module during install.

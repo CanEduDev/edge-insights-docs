@@ -26,8 +26,15 @@ page.
 
     ![Setup wizard: CAN source](../images/getting-started/setup-wizard-02-can-source.png)
 
-3. **CAN interface**: pick the interface and bitrate. See
+3. **CAN interface**: pick the interface, its bitrate, and how frames are
+   read. Turn on **J1939 Mode** for a J1939 bus. See
    [CAN Settings](../portal/can-settings.md) for details on each option.
+
+    This step can also clear what is already recorded for the interface you
+    pick. Tick **Clear existing data for this interface first** to start
+    from a clean state, for example on a device redeployed to a different
+    bus. It is off by default, and it asks for confirmation before erasing
+    anything. The DBC file and your settings are not removed.
 
     ![Setup wizard: CAN interface](../images/getting-started/setup-wizard-03-can-interface.png)
 

@@ -123,9 +123,9 @@ change still show the value they were judged against.
 
 A foreign ID is a CAN ID that is not defined in the loaded DBC file, not
 learned into the baseline, and not listed under
-[Known CAN IDs](can-settings.md#known-can-ids). It can mean a new or
-misconfigured ECU, a device left connected from an earlier test, or
-traffic that does not belong on the bus.
+[Known CAN IDs](can-settings.md#known-can-ids-known-pgns). It can mean a
+new or misconfigured ECU, a device left connected from an earlier test,
+or traffic that does not belong on the bus.
 
 The **Frame count timeline** plots one series per foreign ID, so a
 steady talker and a one-time appearance look different at a glance. The

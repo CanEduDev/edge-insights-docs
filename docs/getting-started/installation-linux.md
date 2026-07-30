@@ -67,6 +67,23 @@ the current mode. To switch back to local-only, run:
 sudo ./install.sh --access local
 ```
 
+## Starting at boot
+
+On a desktop install the stack runs while Edge Insights is open and stops
+when you close it. Nothing starts on its own at boot.
+
+For a machine that should keep recording without anyone opening the
+application, install with `--boot-autostart`:
+
+```
+sudo ./install.sh --boot-autostart
+```
+
+The installer remembers this choice, and `--no-boot-autostart` turns it off
+again. With it on, the CAN Settings page gains a **Boot Autostart** option
+that controls whether capture also starts, or only the portal. See
+[CAN Settings](../portal/can-settings.md#interface-and-bus-settings).
+
 ## Launch
 
 Start **Edge Insights** from the application menu, like any other desktop
