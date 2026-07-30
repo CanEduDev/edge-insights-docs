@@ -12,7 +12,7 @@ interface is up. Bring it down first to change them.
 
 /// note
 SocketCAN virtual interfaces have no physical bus parameters to set, so the
-settings are greyed out. The interface can still be brought up, and the
+settings are grayed out. The interface can still be brought up, and the
 bitrate requirement below does not apply to it.
 ///
 
@@ -46,7 +46,9 @@ the application is open, and a Windows install starts with the portal. See
 ## Protocol
 
 **J1939 Mode** matches frames by PGN (Parameter Group Number) instead of
-exact CAN ID. Turn it on for a J1939 bus. It also works for NMEA2000.
+exact CAN ID. Turn it on for a J1939 bus. NMEA2000 uses the same PGN
+addressing, so turn it on for NMEA2000 buses too. Note that NMEA2000
+signals sent as Fast Packet span several frames and are not decoded.
 
 A J1939 frame carries the address of the sending device in the lowest byte
 of the CAN ID, so the same message arrives with a different CAN ID from
@@ -119,7 +121,7 @@ learned entries are affected.
 
 Confirming clears the configured entries and the learned baseline IDs,
 then saves the new mode. Entries you add after the switch are kept.
-Cancelling leaves the mode and the list unchanged.
+Canceling leaves the mode and the list unchanged.
 
 ![Switching protocol mode](../images/portal/can-settings/protocol-switch-confirm.png)
 
