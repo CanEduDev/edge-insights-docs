@@ -67,10 +67,9 @@ If you're installing on a desktop PC instead, see
     <http://localhost:36300>. From there, select the CAN interface to
     capture and upload a DBC file to start decoding signals.
 
-Other endpoints once the stack is running (same host, different ports):
-
-- Grafana: port `36301`
-- ReductStore: port `36302`
+    Reaching the device through a custom DNS name, a reverse proxy, or a
+    tunnel instead of its hostname or IP needs an extra step: see
+    [The portal loads, but every save or upload fails](../troubleshooting/index.md#the-portal-loads-but-every-save-or-upload-fails).
 
 ## Managing the stack
 

@@ -29,6 +29,8 @@ Edge Insights is installed as a normal desktop application. On an
 embedded or headless device, it runs continuously as background services
 and the portal is accessed over the network.
 
+Edge Insights requires that ports 36300-36302 are available and unbound.
+
 ## Getting started
 
 - [Install on Windows](getting-started/installation-windows.md)

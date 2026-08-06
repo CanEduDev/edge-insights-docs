@@ -53,6 +53,38 @@ If you need a tool to have exclusive control of the bus, e.g. to
 reconfigure bus parameters, stop capture first by toggling the bus off in
 the portal, then start your tool.
 
+## The portal loads, but every save or upload fails
+
+The portal opens normally and shows current data, but any action that
+changes something, e.g. saving CAN settings, uploading a DBC file, or
+toggling an interface, shows a toast like "Failed to save CAN config. See
+details." Expanding the details shows:
+
+```json
+{ "error": "host_not_allowed", "message": "Request Host is not an address of this unit" }
+```
+
+This happens when you reach the unit through a name it doesn't recognize
+as its own: a custom DNS record, a reverse proxy, or a tunnel.
+
+Add the name (or IP) to `PORTAL_ALLOWED_HOSTS`, a comma-separated list of
+extra values the check accepts. Ports are ignored:
+
+```
+PORTAL_ALLOWED_HOSTS=unit.corp.example,10.0.0.7
+```
+
+On an installed unit, add the line to
+`~/.local/share/ced-edge-insights/runtime/env`, then restart the portal:
+
+```bash
+systemctl --user restart analytics-portal
+```
+
+Only add names that actually resolve to this unit. Each entry widens what
+the check accepts, so an unused or stale entry is a small extra risk for
+no benefit.
+
 ## Still stuck
 
 Use [Help & Support](../portal/support.md) in the portal to send your
