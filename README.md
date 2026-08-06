@@ -2,8 +2,7 @@
 
 Live site: <https://docs.cededgeinsights.com>
 
-This repository is the single source of truth for Edge Insights user
-documentation. The product source lives in a separate, private repository.
+This repository is the single source of truth for Edge Insights user documentation.
 
 ## Development
 
