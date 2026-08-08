@@ -21,11 +21,22 @@ The Home page is the starting point. It shows:
   at any time, to reconfigure the CAN interface, DBC file, or baseline
   mode from scratch.
 - **License**: activation status for this installation.
-- **CAN Interfaces**: live status, bus configuration, and a 24-hour
-  anomaly count for each interface.
+- **CAN Interfaces**: live status, bus configuration, and 24-hour anomaly
+  and data-loss counts for each interface.
 - Quick links to Dashboards, Import Log, and Settings.
 
 ![Portal Home page](../images/portal/home/home.png)
+
+### Data loss
+
+The **Data loss (24h)** column counts recorded data that Edge Insights
+could not analyze. It is normally zero.
+
+A number above zero means some recorded data was dropped, so the
+dashboards for that period are incomplete. This happens when stored data
+cannot be read back or cannot be interpreted, which usually points at a
+failing disk. Copy any data you still need off the device, then check the
+device logs under **System → Logs** for details.
 
 ## Navigation
 
