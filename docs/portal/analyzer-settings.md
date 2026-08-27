@@ -20,4 +20,7 @@ Configure anomaly-detection thresholds and data retention. Open it from
 Set how long data is kept, and storage limits for raw frames and decoded
 signals. Oldest data is automatically deleted when a limit is reached.
 
+Imported logs that keep their original timestamps are not affected by the
+retention setting. They are kept until you delete them.
+
 ![Analyzer Settings: retention and storage](../images/portal/analyzer-settings/retention-storage.png)
