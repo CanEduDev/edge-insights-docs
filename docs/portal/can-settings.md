@@ -39,7 +39,7 @@ This option only appears on installs that are set up to start at boot,
 which is a choice made when Edge Insights is installed. Elsewhere there is
 nothing for it to schedule, so it is hidden: a desktop install runs while
 the application is open, and a Windows install starts with the portal. See
-[Starting at boot](../getting-started/installation-linux.md#starting-at-boot).
+[Starting at boot](../getting-started/installation-embedded.md#starting-at-boot).
 
 ![Boot Autostart card](../images/portal/can-settings/boot-autostart.png)
 
