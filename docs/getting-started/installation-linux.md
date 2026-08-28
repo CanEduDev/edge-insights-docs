@@ -1,88 +1,44 @@
-# Installing on Linux
+# Installing on a Linux Desktop
 
-Edge Insights runs on Linux in two ways:
+This page covers installing Edge Insights on a laptop or desktop PC. It
+is installed as a normal desktop application and started from the
+application menu.
 
-- **Desktop PC**: covered on this page. Edge Insights is installed as a
-  normal desktop application and started from the application menu.
-- **Embedded / headless device**: the device monitors a bus continuously
-  and the portal is accessed over the network. See
-  [Installing on an embedded device](installation-embedded.md).
+For a device that monitors a bus continuously and is accessed over the
+network, see
+[Installing on an embedded device](installation-embedded.md).
 
 ## Requirements
 
-- An x86_64 PC. arm64 builds are also available; see the
+- An x86_64 PC. For arm64, see the
   [embedded install page](installation-embedded.md).
 - Ubuntu 22.04+ or Debian 12+. Other systemd-based distributions may work
   but are untested.
 - `systemd` with user services (`systemctl --user`)
 - The `can` kernel module, i.e. SocketCAN, also `vcan` if you want a virtual
   bus for testing without hardware
-- `sudo` / root access to run the installer
+- `sudo` / root access to install
+- About 1 GB of free disk space
 
 ## Install
 
-1. Download the tarball for your architecture,
-   `edge-insights-<version>-linux-x86_64.tar.gz`, extract it, and enter
-   the extracted directory. It contains `install.sh`, `uninstall.sh`,
-   `dist/`, and `systemd/`:
+1. Download `edge-insights_<version>_amd64.deb`.
 
-    ```
-    tar -xzf edge-insights-*-linux-*.tar.gz
-    cd edge-insights-*-linux-*
+2. Install it with `apt`:
+
+    ```bash
+    sudo apt install ./edge-insights_<version>_amd64.deb
     ```
 
-2. Run the installer. It copies the stack into your home directory,
-   registers the background services, and adds **Edge Insights** to your
-   application menu:
+    Keep the leading `./`. It tells `apt` that this is a file, not a
+    package name. `apt` also installs anything else the package needs.
 
-    ```
-    sudo ./install.sh
-    ```
+The package installs Edge Insights for every user on the machine and adds
+it to the application menu. Each user has their own separate data.
 
-    - Add `--with-vcan` to load the `vcan` kernel module during install.
-      Useful for a virtual test bus when no CAN hardware is attached.
-
-    The installer also grants the CAN capture service the `CAP_NET_ADMIN`
-    capability, so it can configure CAN interfaces on its own.
-
-## Network access
-
-By default the portal is reachable only from the device that's running it, at
-<http://localhost:36300>. This keeps Edge Insights off the local network.
-
-To open the portal from another machine on the same network, install with
-`--access network`:
-
-```
-sudo ./install.sh --access network
-```
-
-This binds the portal and the Grafana dashboards to all network interfaces.
-Use it only on a trusted network. The portal has no login.
-
-The installer remembers this choice. Running it again without `--access` keeps
-the current mode. To switch back to local-only, run:
-
-```
-sudo ./install.sh --access local
-```
-
-## Starting at boot
-
-On a desktop install the stack runs while Edge Insights is open and stops
-when you close it. Nothing starts on its own at boot.
-
-For a machine that should keep recording without anyone opening the
-application, install with `--boot-autostart`:
-
-```
-sudo ./install.sh --boot-autostart
-```
-
-The installer remembers this choice, and `--no-boot-autostart` turns it off
-again. With it on, the CAN Settings page gains a **Boot Autostart** option
-that controls whether capture also starts, or only the portal. See
-[CAN Settings](../portal/can-settings.md#interface-and-bus-settings).
+The portal is reachable only from the PC itself. Nothing starts at boot.
+The application starts the services when you open it, and stops them when
+you close it.
 
 ## Launch
 
@@ -93,18 +49,47 @@ The application starts the analytics services and opens the portal in its
 own window. When you close the window, the services it started are stopped
 again. Nothing keeps running in the background.
 
+Continue with [First run](first-run.md).
+
+## Upgrade
+
+Download the newer `.deb` and install it the same way:
+
+```bash
+sudo apt install ./edge-insights_<version>_amd64.deb
+```
+
+An upgrade does not touch your data. Close Edge Insights before you
+upgrade. If it is open, the services are stopped, and the new version is
+used the next time you start it.
+
 ## Uninstall
 
-From the extracted tarball directory:
+To remove the program and keep your data:
 
-```
-sudo ./uninstall.sh
+```bash
+sudo apt remove edge-insights
 ```
 
-This stops the services and removes the installed application. It prompts
-before deleting your data, e.g. analytics database, uploaded DBC files,
-imported logs. To remove everything without prompting:
+To remove your data as well, e.g. analytics database, uploaded DBC files,
+imported logs:
 
+```bash
+sudo apt purge edge-insights
 ```
-sudo ./uninstall.sh --purge
-```
+
+`purge` lists the data it found and asks before it deletes anything. If
+you do not answer, the data is kept.
+
+## Where your data is
+
+Edge Insights is installed in `/opt/edge-insights` and shared by everyone
+on the machine.
+
+Everything it records is stored per user, in
+`~/.local/share/edge-insights`. This includes the analytics database,
+uploaded DBC files, and imported logs. Back up that directory to keep your
+recordings.
+
+An upgrade does not touch your data. An uninstall removes it only if you
+ask for it.

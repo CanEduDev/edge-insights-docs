@@ -24,17 +24,18 @@ if you just want to try Edge Insights without hardware attached. Ubuntu
 work but are untested. Needs `systemd` with user services
 (`systemctl --user`).
 
-Linux builds are published for both x86_64 and arm64. On a desktop PC,
-Edge Insights is installed as a normal desktop application. On an
-embedded or headless device, it runs continuously as background services
-and the portal is accessed over the network.
+Linux builds are published for both x86_64 and arm64. On a laptop or
+desktop PC, Edge Insights installs from a Debian package and runs as a
+normal desktop application. On an embedded or headless device, it installs
+from a release tarball and runs continuously as background services. The
+portal is accessed over the network.
 
 Edge Insights requires that ports 36300-36302 are available and unbound.
 
 ## Getting started
 
 - [Install on Windows](getting-started/installation-windows.md)
-- [Install on Linux](getting-started/installation-linux.md)
+- [Install on a Linux desktop](getting-started/installation-linux.md)
 - [Install on an embedded device](getting-started/installation-embedded.md)
 - [First run](getting-started/first-run.md): open the portal and start
   capturing

@@ -74,8 +74,8 @@ extra values the check accepts. Ports are ignored:
 PORTAL_ALLOWED_HOSTS=unit.corp.example,10.0.0.7
 ```
 
-On an installed unit, add the line to
-`~/.local/share/ced-edge-insights/runtime/env`, then restart the portal:
+On an installed unit, add the line to `~/.local/share/edge-insights/env`.
+Create the file if it does not exist. Then restart the portal:
 
 ```bash
 systemctl --user restart analytics-portal
