@@ -35,7 +35,10 @@ the panel shows.
 ## Bus Health
 
 - **At a glance**: total anomalies, timing anomalies, congestion windows,
-  and bus errors in range.
+  and bus errors in range. The row header names the range the four counts
+  cover, for example `At a glance (Sep 5 11:50 – Sep 5 12:05)`. It follows
+  the time-range picker, so two readings taken at different times are only
+  comparable if the header shows the same range.
 - **What's wrong, when**: an anomaly timeline, split by type: timing,
   congestion, foreign ID, bus error.
 - **Anomaly list**: every anomaly in range, with timestamp, type, CAN ID,
