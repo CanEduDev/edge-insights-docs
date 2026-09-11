@@ -3,7 +3,9 @@
 ## Download
 
 Download `edge-insights-<version>-windows-x86_64-setup.exe` from the
-release.
+[Software Download](https://www.canedudev.com/my-account/software-downloads/)
+page of your canedudev.com account. If you do not have an account yet,
+see [Getting Edge Insights](get-edge-insights.md).
 
 ## Security warnings
 

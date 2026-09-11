@@ -58,6 +58,20 @@ page.
 If no CAN hardware is connected, use the **Try with demo data** option
 above, or import a log later from [Import Log](../portal/import-log.md).
 
+## Activate the license
+
+1. Copy your license key from the
+   [License keys](https://www.canedudev.com/my-account/api-keys/) page of your
+   canedudev.com account. See
+   [Getting Edge Insights](get-edge-insights.md) if you do not have a key
+   yet.
+2. On the portal Home page, enter the key in the **License** card and
+   click **Activate**.
+
+The machine that runs Edge Insights needs an internet connection to
+activate. After activation, Edge Insights runs offline. See
+[Licensing](../portal/index.md#licensing) for details on the License card.
+
 ## Next steps
 
 The [Portal Guide](../portal/index.md) describes each part of the portal:

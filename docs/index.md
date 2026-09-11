@@ -34,6 +34,8 @@ Edge Insights requires that ports 36300-36302 are available and unbound.
 
 ## Getting started
 
+- [Get Edge Insights](getting-started/get-edge-insights.md): order the
+  free beta license and download the software
 - [Install on Windows](getting-started/installation-windows.md)
 - [Install on a Linux desktop](getting-started/installation-linux.md)
 - [Install on an embedded device](getting-started/installation-embedded.md)

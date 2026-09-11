@@ -22,12 +22,15 @@ network, see
 
 ## Install
 
-1. Download `edge-insights_<version>_amd64.deb`.
+1. Download `edge-insights-<version>-linux-x86_64.deb` from the
+   [Software Download](https://www.canedudev.com/my-account/software-downloads/)
+   page of your canedudev.com account. If you do not have an account yet,
+   see [Getting Edge Insights](get-edge-insights.md).
 
 2. Install it with `apt`:
 
     ```bash
-    sudo apt install ./edge-insights_<version>_amd64.deb
+    sudo apt install ./edge-insights-<version>-linux-x86_64.deb
     ```
 
     Keep the leading `./`. It tells `apt` that this is a file, not a
@@ -53,10 +56,12 @@ Continue with [First run](first-run.md).
 
 ## Upgrade
 
-Download the newer `.deb` and install it the same way:
+Download the newer `.deb` from
+[Software Download](https://www.canedudev.com/my-account/software-downloads/)
+and install it the same way:
 
 ```bash
-sudo apt install ./edge-insights_<version>_amd64.deb
+sudo apt install ./edge-insights-<version>-linux-x86_64.deb
 ```
 
 An upgrade does not touch your data. Close Edge Insights before you
