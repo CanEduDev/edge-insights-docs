@@ -25,16 +25,27 @@ instead, see [Installing on a Linux desktop](installation-linux.md).
 
 1. Download the tarball for your architecture,
    `edge-insights-<version>-linux-arm64.tar.gz` or
-   `...-linux-x86_64.tar.gz`, extract it, and enter the extracted
-   directory. It contains `install.sh`, `uninstall.sh`, `dist/`, and
-   `systemd/`:
+   `edge-insights-<version>-linux-x86_64.tar.gz`, from the
+   [Software Download](https://www.canedudev.com/my-account/software-downloads/)
+   page of your canedudev.com account. If you do not have an account yet,
+   see [Getting Edge Insights](get-edge-insights.md).
+
+    The page needs a login in a browser. Download the tarball on a PC,
+    then copy it to the device, e.g. with `scp`:
+
+    ```bash
+    scp edge-insights-<version>-linux-arm64.tar.gz <user>@<device-hostname-or-ip>:
+    ```
+
+2. On the device, extract the tarball and enter the extracted directory.
+   It contains `install.sh`, `uninstall.sh`, `dist/`, and `systemd/`:
 
     ```bash
     tar -xzf edge-insights-*-linux-*.tar.gz
     cd edge-insights-*-linux-*
     ```
 
-2. Run the installer with `--start --access network --boot-autostart`. It
+3. Run the installer with `--start --access network --boot-autostart`. It
    installs the stack into `/opt/edge-insights`, registers the systemd
    `--user` services, starts them immediately, makes the portal reachable
    over the network, and brings the stack back up after every reboot:
@@ -61,7 +72,7 @@ instead, see [Installing on a Linux desktop](installation-linux.md).
     device. What it records is stored per user, in
     `~/.local/share/edge-insights`.
 
-3. Open the portal from a browser on another machine on the same network:
+4. Open the portal from a browser on another machine on the same network:
 
     `http://<device-hostname-or-ip>:36300`
 
@@ -75,9 +86,12 @@ instead, see [Installing on a Linux desktop](installation-linux.md).
 
 ## Upgrade
 
-Extract the new tarball and run the installer again. The installer
-remembers the `--access` and `--boot-autostart` choices from the previous
-install, so a plain re-run keeps the device configured the way it was:
+Download the new tarball from
+[Software Download](https://www.canedudev.com/my-account/software-downloads/)
+and copy it to the device. Extract it and run the installer again. The
+installer remembers the `--access` and `--boot-autostart` choices from the
+previous install, so a plain re-run keeps the device configured the way it
+was:
 
 ```bash
 sudo ./install.sh --start

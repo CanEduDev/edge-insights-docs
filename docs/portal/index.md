@@ -43,7 +43,8 @@ opens the support flow from any page.
 ## Licensing
 
 The License card on the Home page shows whether Edge Insights is
-activated on this installation.
+activated on this installation. To get a license key, see
+[Getting Edge Insights](../getting-started/get-edge-insights.md).
 
 To activate, enter your license key and click **Activate**:
 
@@ -62,5 +63,6 @@ Confirming frees the activation so the same key can be used on another
 machine.
 
 You can also deactivate a license without access to the machine it's
-activated on, by logging into your account at
-[canedudev.com](https://canedudev.com).
+activated on, from the
+[License keys](https://www.canedudev.com/my-account/api-keys/) page of your
+canedudev.com account.

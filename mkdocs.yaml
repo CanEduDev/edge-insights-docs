@@ -102,6 +102,7 @@ nav:
   - Home:
       - index.md
       - Getting Started:
+          - getting-started/get-edge-insights.md
           - getting-started/installation-windows.md
           - getting-started/installation-linux.md
           - getting-started/installation-embedded.md
