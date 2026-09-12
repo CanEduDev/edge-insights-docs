@@ -25,10 +25,11 @@ the panel shows.
   utilization, and how many DBC messages are loaded.
 - **Bus activity**: bus utilization over time, and CAN frame rate broken
   down by ID.
-- **Bus behavior**: a timing summary per CAN ID, covering classification,
-  confidence, sample count, and average interval, plus the overall
+- **Bus behavior**: a timing summary per CAN ID and interface, covering
+  classification, confidence, sample count, and average interval, plus the
   classification distribution across periodic, aperiodic, and burst
-  categories.
+  categories. The same CAN ID seen on two interfaces is listed and
+  classified separately for each one.
 
 ![Bus Overview dashboard](../images/portal/dashboards/bus-overview-embed.png)
 
