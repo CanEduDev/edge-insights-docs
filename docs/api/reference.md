@@ -25,14 +25,18 @@ This endpoint takes no query parameters.
     "entry": "can0",
     "state": "online",
     "raw": true,
-    "decoded": true
+    "decoded": true,
+    "raw_latest_record_us": 1752703599000000,
+    "decoded_latest_record_us": 1752703598000000
   },
   {
     "interface": "Kvaser USBcan Pro 5xHS [SN 10822] (channel 0)",
     "entry": "Kvaser_USBcan_Pro_5xHS_SN_10822_channel_0",
     "state": "disconnected",
     "raw": true,
-    "decoded": false
+    "decoded": false,
+    "raw_latest_record_us": 1752690000000000,
+    "decoded_latest_record_us": null
   }
 ]
 ```
@@ -48,6 +52,11 @@ This endpoint takes no query parameters.
 - `decoded`: whether [`logs/decoded`](#logs-decoded) has data for this
   interface. This is `false` for every interface when no DBC file is
   configured.
+- `raw_latest_record_us`: the timestamp of the newest record stored for
+  [`logs/raw`](#logs-raw), in microseconds. It is `null` when `raw` is
+  `false`. See [Polling for new data](#polling).
+- `decoded_latest_record_us`: the same value for
+  [`logs/decoded`](#logs-decoded). It is `null` when `decoded` is `false`.
 
 `raw` and `decoded` describe stored data, and `state` describes hardware. The
 two are independent. An `online` interface can hold no data yet, and a
@@ -69,13 +78,46 @@ check".
 | `disconnected` | Not attached, but data is stored under this name. The hardware was unplugged, or the data was imported. The stored data is still downloadable. |
 | `unknown` | The unit could not query its CAN backend, usually a missing or broken driver, so it cannot tell whether the interface is attached. |
 
-The list carries no timestamps. To find the stored time range of one
-interface, call [`raw/estimate`](#logs-estimate) without `from` and `to`, then
-read `first_record_us`.
+To find the oldest end of the stored range, call
+[`raw/estimate`](#logs-estimate) without `from` and `to`, then read
+`first_record_us`.
 
 ```bash
 curl -fs 'http://localhost:36300/api/v0/logs/interfaces'
 ```
+
+### Polling for new data { #polling }
+
+A record holds a batch of frames, and its timestamp is the timestamp of the
+first frame in that batch. So `raw_latest_record_us` is the start of the
+newest stored batch, not the timestamp of the newest stored frame. There are
+more frames after it, inside the same batch.
+
+This makes it the same handle the downloads take. Pass it back as `from`,
+which is exclusive, and you receive that batch and everything recorded after
+it.
+
+A script that pulls new data off a unit at intervals keeps its own checkpoint
+and compares it with this value:
+
+```bash
+curl -fs 'http://localhost:36300/api/v0/logs/interfaces' \
+  | jq -r '.[] | select(.entry == "can0") | .raw_latest_record_us'
+```
+
+If the value is not greater than your checkpoint, there is nothing new and
+you can skip the download. If it is greater, download from your checkpoint,
+then set the checkpoint to the timestamp of the last batch you fully
+received. Do not set it to `raw_latest_record_us`: the unit keeps recording,
+so that value is already old when you read it.
+
+The listing reads this value from storage metadata, so polling it does not
+read any recorded data. To find out how much data is waiting, call
+[`raw/estimate`](#logs-estimate) over the same range.
+
+The decoder writes after the recorder, so `decoded_latest_record_us` normally
+lags behind `raw_latest_record_us`. Poll the value for the endpoint you
+download from.
 
 ### Errors
 
