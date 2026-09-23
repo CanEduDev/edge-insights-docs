@@ -16,6 +16,13 @@ settings are grayed out. The interface can still be brought up, and the
 bitrate requirement below does not apply to it.
 ///
 
+**Silent Mode** makes the interface receive only. It transmits nothing on
+the bus, not even acknowledgments (ACKs). Some Kvaser channels do not
+support silent mode, including Kvaser virtual channels. For these
+channels the switch is off and dimmed, and the hint "Controller does not
+support silent mode" is shown below it. The setup wizard shows the switch
+the same way.
+
 The capture control is at the bottom of the Bus Settings card:
 
 - **Save & Bring Up** saves the settings above it and starts capture on
