@@ -16,10 +16,11 @@ another machine on the network.
 
 The Home page is the starting point. It shows:
 
-- **Re-run setup wizard**: replays the
-  [initial setup wizard](../getting-started/first-run.md#initial-setup)
-  at any time, to reconfigure the CAN interface, DBC file, or baseline
-  mode from scratch.
+- **Re-run setup wizard**: opens the
+  [setup wizard](../getting-started/first-run.md#running-the-wizard-again)
+  again, to change the CAN interface, DBC file, or baseline mode. The
+  wizard starts from the current settings and saves nothing until its
+  last step.
 - **License**: activation status for this installation.
 - **CAN Interfaces**: live status, bus configuration, and a 24-hour
   anomaly count for each interface.
