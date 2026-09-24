@@ -16,12 +16,11 @@ settings are grayed out. The interface can still be brought up, and the
 bitrate requirement below does not apply to it.
 ///
 
-**Silent Mode** makes the interface receive only. It transmits nothing on
-the bus, not even acknowledgments (ACKs). Some Kvaser channels do not
-support silent mode, including Kvaser virtual channels. For these
-channels the switch is off and dimmed, and the hint "Controller does not
-support silent mode" is shown below it. The setup wizard shows the switch
-the same way.
+**Silent Mode** makes the interface receive only. It transmits nothing on the
+bus, not even acknowledgments (ACKs). Some CAN interfaces, such as virtual
+ones, do not support silent mode. For these interfaces the switch is off and
+dimmed, and the hint "Controller does not support silent mode" is shown below
+it. The setup wizard shows the switch the same way.
 
 The capture control is at the bottom of the Bus Settings card:
 
@@ -80,7 +79,7 @@ new file replaces the current one.
 
 For a J1939 database, turn on J1939 Mode under [Protocol](#protocol)
 first. A J1939 database defines its messages per PGN, so with the mode off
-it matches no frames at all and nothing is decoded.
+decoding will not work as intended.
 
 Signals wider than 64 bits are skipped when the file loads. These describe
 payloads that are reassembled from several frames, which Edge Insights

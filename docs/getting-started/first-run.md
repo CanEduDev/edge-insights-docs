@@ -86,8 +86,8 @@ above, or import a log later from [Import Log](../portal/import-log.md).
 ### Running the wizard again
 
 Click **Re-run setup wizard** on the Home page to change the settings
-later. The wizard starts from the saved settings. Change what you need.
-As on the first run, nothing is saved until the last step.
+later. The wizard starts from the saved settings. As on the first run,
+nothing is saved until the last step.
 
 If Edge Insights is recording when the wizard opens, the Welcome step
 shows a warning. Setup stops the recording before it continues. The
@@ -96,7 +96,7 @@ warning has two buttons:
 - **Stop recording & continue** stops the recording and continues to the
   next step.
 - **Go back** returns to the Home page. Recording continues. This button
-  is not shown before setup has been completed once.
+  is not shown if recording is already stopped.
 
 ![Setup wizard: Welcome while recording](../images/getting-started/setup-wizard-rerun-welcome.png)
 
