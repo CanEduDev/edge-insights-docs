@@ -33,6 +33,11 @@ The capture control is at the bottom of the Bus Settings card:
   Data captured just before bring-down is still processed in the
   background, so dashboards may keep updating briefly.
 
+**Advanced: Applied Bit Timing** reports the bit segments the driver
+computed from the bitrate and sample point you set. The values appear once
+the interface is up. On a CAN FD bus the data phase segments are listed as
+well. The report is read-only: entering segments by hand is not supported.
+
 ![CAN Settings: interface offline](../images/portal/can-settings/offline.png)
 
 ![CAN Settings: interface online](../images/portal/can-settings/online.png)
