@@ -256,21 +256,9 @@ download. `max_file_bytes` is the unit's configured per-file limit (default
 2 GiB). When the estimate is larger than this limit, download the range in
 parts instead of one file.
 
-All numbers are estimates. The text size is computed line by line from the
-frame counts, the data bytes, and the interface name. The estimate reads
-record metadata only. The metadata does not hold the CAN ID length or the
-frame direction, so every line is counted with a 29-bit ID and a direction
-suffix. The estimate therefore errs on the high side.
-
-A data frame line is at most 7 bytes too long: 5 bytes for an 11-bit ID and
-2 bytes for a missing direction suffix. The estimate is up to about 6% high
-for 29-bit traffic and about 5% to 25% high for 11-bit traffic. The error is
-largest for short payloads and short interface names. One rare line can be
-longer than counted: a classic frame with a DLC above 8 has a `_X` suffix
-that adds 2 bytes. Remote frames and error frames are each counted as the
-longest possible error line, about 300 bytes. A range with many bus errors
-can therefore show an estimate several times larger than the real file.
-Retention can also shrink the range between the estimate and the download.
+All numbers are estimates. `estimated_output_bytes` errs on the high side, so
+the downloaded file is usually smaller. Retention can also shrink the range
+between the estimate and the download.
 
 ### Slicing large exports
 
