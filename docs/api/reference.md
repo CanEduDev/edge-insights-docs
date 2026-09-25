@@ -256,9 +256,13 @@ download. `max_file_bytes` is the unit's configured per-file limit (default
 2 GiB). When the estimate is larger than this limit, download the range in
 parts instead of one file.
 
-All numbers are estimates: the binary-to-text expansion is a measured
-average, and retention can shrink the range between the estimate and the
-download.
+All numbers are estimates. The text size is computed line by line from the
+frame count, the data bytes, and the interface name. The estimate reads
+record metadata only, and the metadata does not hold the CAN ID length or
+the frame direction. Every line is therefore counted with a 29-bit ID and a
+direction suffix. The estimate is a few percent high for 29-bit traffic and
+about 10% high for 11-bit traffic. Retention can also shrink the range
+between the estimate and the download.
 
 ### Slicing large exports
 
