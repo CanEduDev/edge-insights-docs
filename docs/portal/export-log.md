@@ -33,8 +33,11 @@ When it finishes, the downloaded file name appears below the button:
 
 Detected anomalies in the selected range are listed below the export
 controls, each with its own **Export** button. Use this to export just the
-data around a specific anomaly instead of the whole range. The padding
-before and after the anomaly is configurable.
+data around a specific anomaly instead of the whole range.
+
+By default, the **Padding** list is set to **Minimal**. The export then
+holds about three seconds of data around the anomaly. To include more data
+before and after the anomaly, select ±10 s, ±30 s or ±60 s.
 
 ![Anomalies in this range](../images/portal/export-log/anomalies-list.png)
 
