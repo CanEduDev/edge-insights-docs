@@ -237,7 +237,7 @@ of a time-range picker.
   "entry": "can0", "first_record_us": 1752700000000000,
   "frames": 6100000,
   "stored_bytes": 36000000, "uncompressed_bytes": 146000000,
-  "estimated_output_bytes": 321000000,
+  "estimated_output_bytes": 322000000,
   "max_file_bytes": 2147483648,
   "cut_points_us": []
 }
@@ -257,14 +257,20 @@ download. `max_file_bytes` is the unit's configured per-file limit (default
 parts instead of one file.
 
 All numbers are estimates. The text size is computed line by line from the
-frame count, the data bytes, and the interface name. The estimate reads
-record metadata only, and the metadata does not hold the CAN ID length or
-the frame direction. Every line is therefore counted with a 29-bit ID and a
-direction suffix. A line is at most 7 bytes too long: 5 bytes for an 11-bit
-ID and 2 bytes for a missing suffix. The estimate is a few percent high for
-29-bit traffic and about 5% to 25% high for 11-bit traffic. The error is
-largest for short payloads and short interface names. Retention can also
-shrink the range between the estimate and the download.
+frame counts, the data bytes, and the interface name. The estimate reads
+record metadata only. The metadata does not hold the CAN ID length or the
+frame direction, so every line is counted with a 29-bit ID and a direction
+suffix. The estimate therefore errs on the high side.
+
+A data frame line is at most 7 bytes too long: 5 bytes for an 11-bit ID and
+2 bytes for a missing direction suffix. The estimate is up to about 6% high
+for 29-bit traffic and about 5% to 25% high for 11-bit traffic. The error is
+largest for short payloads and short interface names. One rare line can be
+longer than counted: a classic frame with a DLC above 8 has a `_X` suffix
+that adds 2 bytes. Remote frames and error frames are each counted as the
+longest possible error line, about 300 bytes. A range with many bus errors
+can therefore show an estimate several times larger than the real file.
+Retention can also shrink the range between the estimate and the download.
 
 ### Slicing large exports
 
