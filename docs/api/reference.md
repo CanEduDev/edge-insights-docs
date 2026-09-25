@@ -260,9 +260,11 @@ All numbers are estimates. The text size is computed line by line from the
 frame count, the data bytes, and the interface name. The estimate reads
 record metadata only, and the metadata does not hold the CAN ID length or
 the frame direction. Every line is therefore counted with a 29-bit ID and a
-direction suffix. The estimate is a few percent high for 29-bit traffic and
-about 10% high for 11-bit traffic. Retention can also shrink the range
-between the estimate and the download.
+direction suffix. A line is at most 7 bytes too long: 5 bytes for an 11-bit
+ID and 2 bytes for a missing suffix. The estimate is a few percent high for
+29-bit traffic and about 5% to 25% high for 11-bit traffic. The error is
+largest for short payloads and short interface names. Retention can also
+shrink the range between the estimate and the download.
 
 ### Slicing large exports
 
