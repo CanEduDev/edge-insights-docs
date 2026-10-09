@@ -33,6 +33,15 @@ The capture control is at the bottom of the Bus Settings card:
   Data captured just before bring-down is still processed in the
   background, so dashboards may keep updating briefly.
 
+**Sample Point** and **FD Sample Point** stay disabled until their bitrate
+is set. A sample point is part of the bit timing, so it has no effect
+without a bitrate.
+
+If the configured interface is not connected, capture stops and the page
+shows a warning. Reconnect the interface or pick another one, then select
+**Save & Bring Up**. On Linux, capture also starts again on its own if the
+interface is back within about 30 seconds.
+
 ![CAN Settings: interface offline](../images/portal/can-settings/offline.png)
 
 ![CAN Settings: interface online](../images/portal/can-settings/online.png)
