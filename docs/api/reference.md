@@ -25,14 +25,18 @@ This endpoint takes no query parameters.
     "entry": "can0",
     "state": "online",
     "raw": true,
-    "decoded": true
+    "raw_latest_us": 1760090400000000,
+    "decoded": true,
+    "decoded_latest_us": 1760090400000000
   },
   {
     "interface": "Kvaser USBcan Pro 5xHS [SN 10822] (channel 0)",
     "entry": "Kvaser_USBcan_Pro_5xHS_SN_10822_channel_0",
     "state": "disconnected",
     "raw": true,
-    "decoded": false
+    "raw_latest_us": 1760004000000000,
+    "decoded": false,
+    "decoded_latest_us": null
   }
 ]
 ```
@@ -45,9 +49,14 @@ This endpoint takes no query parameters.
 - `state`: whether the interface is attached to the unit right now. See
   [Interface state](#interface-state).
 - `raw`: whether [`logs/raw`](#logs-raw) has data for this interface.
+- `raw_latest_us`: the microsecond timestamp of the newest stored raw
+  record. This is `null` when `raw` is `false`. See
+  [Newest stored record](#newest-stored-record).
 - `decoded`: whether [`logs/decoded`](#logs-decoded) has data for this
   interface. This is `false` for every interface when no DBC file is
   configured.
+- `decoded_latest_us`: the same as `raw_latest_us`, for decoded data. This
+  is `null` when `decoded` is `false`.
 
 `raw` and `decoded` describe stored data, and `state` describes hardware. The
 two are independent. An `online` interface can hold no data yet, and a
@@ -69,9 +78,28 @@ check".
 | `disconnected` | Not attached, but data is stored under this name. The hardware was unplugged, or the data was imported. The stored data is still downloadable. |
 | `unknown` | The unit could not query its CAN backend, usually a missing or broken driver, so it cannot tell whether the interface is attached. |
 
-The list carries no timestamps. To find the stored time range of one
-interface, call [`raw/estimate`](#logs-estimate) without `from` and `to`, then
-read `first_record_us`.
+### Newest stored record { #newest-stored-record }
+
+The unit stores frames in records. A record's timestamp is the timestamp of
+its first frame. `raw_latest_us` and `decoded_latest_us` are the timestamp of
+the newest record, not of the newest frame. A download that includes that
+record returns frames with later timestamps.
+
+Use the value as a sync checkpoint. Call this endpoint and compare
+`raw_latest_us` with your checkpoint:
+
+- Equal to your checkpoint: no new data is stored.
+- Greater than your checkpoint: download with `from` set to your checkpoint
+  and `to` set to `raw_latest_us + 1`. When the download completes, save
+  `raw_latest_us` as your new checkpoint.
+
+`from` is exclusive, so the next download starts after the record you already
+have. `to` is also exclusive, so `raw_latest_us + 1` includes the newest
+record. Records stored while the download runs come with the next sync.
+
+To find the oldest stored record of one interface, call
+[`raw/estimate`](#logs-estimate) without `from` and `to`, then read
+`first_record_us`.
 
 ```bash
 curl -fs 'http://localhost:36300/api/v0/logs/interfaces'
