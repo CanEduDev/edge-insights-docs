@@ -2,7 +2,7 @@
 
 Edge Insights captures CAN bus traffic, decodes it with your DBC files,
 and detects timing, congestion, and error anomalies. Results are shown in
-a local web portal with Grafana dashboards. All data stays on the device;
+the dashboards of a local web portal. All data stays on the device;
 no cloud connection is required.
 
 Edge Insights runs on Windows PCs, Linux PCs, and embedded Linux devices,
@@ -30,7 +30,7 @@ normal desktop application. On an embedded or headless device, it installs
 from a release tarball and runs continuously as background services. The
 portal is accessed over the network.
 
-Edge Insights requires that ports 36300-36302 are available and unbound.
+Edge Insights requires that ports 36300 and 36302 are available and unbound.
 
 ## Getting started
 

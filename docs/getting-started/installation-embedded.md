@@ -117,8 +117,8 @@ journalctl --user -u 'analytics-*' -f --no-hostname -o short-iso
 
 ## Network access
 
-`--access network` binds the portal and the Grafana dashboards to all
-network interfaces, so you can reach them from another machine. Without it
+`--access network` binds the portal to all network interfaces, so you
+can reach it from another machine. Without it
 the portal is reachable only on the device itself, at `localhost`.
 
 Use network access only on a trusted network. The portal has no login.
@@ -140,9 +140,9 @@ sudo ./install.sh --boot-autostart
 ```
 
 The installer remembers this choice, and `--no-boot-autostart` turns it
-off again. With it on, the CAN Settings page gains a **Boot Autostart**
+off again. With it on, the Bus tab in Settings gains a **Boot Autostart**
 option that controls whether capture also starts, or only the portal. See
-[CAN Settings](../portal/can-settings.md#interface-and-bus-settings).
+[Boot Autostart](../portal/settings.md#boot-autostart).
 
 ## Uninstall
 

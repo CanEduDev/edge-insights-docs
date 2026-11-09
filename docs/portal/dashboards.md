@@ -1,62 +1,80 @@
 # Dashboards
 
-Edge Insights embeds three Grafana dashboards in the portal. Open them
-from **Dashboards** in the sidebar.
-
-![Dashboards overview](../images/portal/dashboards/overview.png)
+Edge Insights has three dashboards. Open them from **Dashboards** in the
+sidebar.
 
 - **Bus Overview**: how does my system work? Frame counts, rates, CAN
   IDs, and timing classification.
 - **Bus Health**: what is wrong? Anomalies, errors, foreign IDs, and
   congestion, with drill-down.
-- **Signal Explorer**: decoded signal values, statistics, and a signal
-  catalog. Needs a DBC file loaded on the interface, see
-  [CAN Settings](can-settings.md#dbc-file).
+- **Signal Explorer**: decoded signal values and statistics. Needs a DBC
+  file loaded on the interface, see [Settings](settings.md#decoding).
 
-Each dashboard opens embedded in the portal, with a link to open it
-directly in Grafana. The time-range picker and refresh interval at the top
-apply within the embed, same as in Grafana itself. Every panel has a
-**(?)** icon next to its title. Hover over it for a description of what
-the panel shows.
+Every panel has an info icon next to its title. Hover over it for a
+description of what the panel shows.
+
+## Time range and refresh
+
+The controls at the top of each dashboard apply to all its panels:
+
+- **Time range**: select the range to choose a preset, e.g. the last 15
+  minutes, or set explicit start and end times.
+- **Zoom out**: the magnifier button next to the time range doubles the
+  range.
+- **Drag to zoom**: drag across a chart to zoom into that time range.
+- **Filters**: e.g. **CAN Interface**, **Anomaly Type**, and **CAN ID**,
+  depending on the dashboard.
+- **Refresh**: loads new data now. The list next to it sets how often the
+  dashboard refreshes on its own, or turns auto-refresh off.
+- **Export**: opens [Export Log](export-log.md#export-from-a-dashboard) with
+  the interface and time range of the dashboard.
+
+A panel with no data in the time range offers **Zoom to data** when newer or
+older data exists. It shows the 15 minutes up to the newest data.
+
+Each chart has two buttons in its top-right corner. The table button shows
+the data of the chart as a table. Select it again to return to the chart.
+The expand button shows the panel at full size.
 
 ## Bus Overview
 
-- **At a glance**: frames in range, active CAN IDs in range, latest bus
-  utilization, and how many DBC messages are loaded.
-- **Bus activity**: bus utilization over time, and CAN frame rate broken
-  down by ID.
-- **Bus behavior**: a timing summary per CAN ID and interface, covering
-  classification, confidence, sample count, and average interval, plus the
-  classification distribution across periodic, aperiodic, and burst
-  categories. The same CAN ID seen on two interfaces is listed and
+- **At a glance**: frames in range, active CAN IDs in range, bus
+  utilization, and anomalies in range.
+- **Bus utilization** and **CAN frame rate by ID**: bus load over time, and
+  the frame rate of each CAN ID.
+- **All CAN IDs timing summary**: one row per CAN ID and interface, with
+  its class, confidence, sample count, average interval, jitter, and
+  anomaly count. The same CAN ID seen on two interfaces is listed and
   classified separately for each one.
+- **Classification distribution**: the share of periodic, aperiodic, and
+  burst CAN IDs.
 
-![Bus Overview dashboard](../images/portal/dashboards/bus-overview-embed.png)
+![Bus Overview dashboard](../images/portal/dashboards/bus-overview.png)
 
 ## Bus Health
 
-- **At a glance**: total anomalies, timing anomalies, congestion windows,
-  and bus errors in range. The row header names the range the four counts
-  cover, for example `At a glance (Sep 5 11:50 – Sep 5 12:05)`. It follows
-  the time-range picker, so two readings taken at different times are only
-  comparable if the header shows the same range.
-- **What's wrong, when**: an anomaly timeline, split by type: timing,
-  congestion, foreign ID, bus error.
+- **At a glance**: anomalies in range, timing anomalies, congestion
+  windows, bus errors, and foreign ID events. The counts follow the time
+  range, so two readings taken at different times are comparable only if
+  they cover the same range.
+- **Anomaly timeline**: anomalies over time, split by type: timing,
+  congestion, foreign ID, and bus error.
 - **Anomaly list**: every anomaly in range, with timestamp, type, CAN ID,
-  interface, a summary, and a count. Filter by CAN interface or anomaly
-  type using the controls at the top.
+  interface, a summary, and a count. Timing anomalies show as **Late**,
+  **Early**, or **Gap** rows. Filter by CAN interface, anomaly type, or CAN
+  ID with the controls at the top.
 
-![Bus Health dashboard](../images/portal/dashboards/bus-health-embed.png)
+![Bus Health dashboard](../images/portal/dashboards/bus-health.png)
 
 ## Anomaly drill-down
 
-Click a row in the **Anomaly list** on Bus Health to open a deep-dive
+Select a row in the **Anomaly list** on Bus Health to open a deep-dive
 dashboard for that anomaly. Which dashboard opens depends on the type in
 the row.
 
 | Type | Opens | Filtered to |
 | ---- | ----- | ----------- |
-| Timing | Timing Anomaly Deep Dive | The CAN ID in the row |
+| Late, Early, Gap | Timing Anomaly Deep Dive | The CAN ID in the row |
 | Congestion | Congestion Deep Dive | The interface |
 | Foreign ID | Foreign ID Deep Dive | The interface |
 | Bus Error | CAN Errors Deep Dive | The interface |
@@ -64,41 +82,47 @@ the row.
 Only a timing anomaly belongs to a single CAN ID. The other three
 describe the state of the bus, so they open filtered to the interface.
 Every deep dive opens on a time range around the event, with about 30
-seconds of context on each side. Change it with the time picker.
+seconds of context on each side. Change it with the time range control. The
+back arrow next to the title, or the browser's Back button, returns to Bus
+Health with the time range you had.
 
 ### Timing
 
-The **Interval timeline** panel plots two lines.
+The **Interval timeline** panel plots the measured interval and one
+reference line for each point in time.
 
 - **Measured (window avg)**: the average time between frames for that CAN
   ID, over one aggregation window.
-- **Baseline (expected)**: the reference cadence the analyzer scores
-  against. Edge Insights learns this value from the bus. It is not the
-  cycle time declared in the DBC file.
+- **Baseline (frozen)**: the interval stored when the learn phase ended.
+  The analyzer scores against this value from that moment.
+- **Expected (live)**: the median of recent intervals. The analyzer scores
+  against this value in direct mode and before a baseline is frozen.
 
-Anomalies are scored against the baseline, not against the measured
-average. Red points mark the individual intervals that fell outside the
-threshold.
+Edge Insights learns both reference values from the bus. Neither is the
+cycle time declared in the DBC file. Anomalies are scored against the
+reference line, not against the measured average. Red points mark the
+individual intervals that fell outside the threshold.
 
-The two lines answer different questions. If they sit on top of each
-other, the message is running at its normal cadence. If the measured line
-drifts away from the baseline while few frames are flagged, the cadence
-has shifted but each frame is still inside the allowed band. This is an
-early sign of a timing problem. If the measured line stays on the
-baseline while red points appear, the average cadence is normal and
-individual frames are jittering.
+The lines answer different questions. If the measured line sits on the
+reference line, the message runs at its normal cadence. If the measured
+line drifts away from Baseline (frozen) while few frames are flagged, the
+cadence has shifted, but each frame is still inside the allowed band. This
+is an early sign of a timing problem. If the measured line stays on the
+reference line while red points appear, the average cadence is normal and
+individual frames are jittering. Expected (live) follows the traffic, so a
+slow shift in cadence is easier to see against Baseline (frozen).
 
 The **Anomaly details** table lists every flagged frame with its measured
 interval, the baseline it was scored against, and the deviation between
 them.
 
-![Timing Anomaly Deep Dive](../images/portal/dashboards/anomaly-deep-dive-embed.png)
+![Timing Anomaly Deep Dive](../images/portal/dashboards/timing-deep-dive.png)
 
 ### Congestion
 
 A microburst is a short window, well under a second, where bus
 utilization crossed the congestion threshold. Set the threshold in
-[Analyzer Settings](analyzer-settings.md#thresholds).
+[Settings](settings.md#anomaly-thresholds).
 
 The dashboard shows the same traffic at two time scales, and the
 difference between them is the point.
@@ -121,13 +145,13 @@ frame count, payload bytes, and the threshold that applied at the time.
 The threshold is recorded per event, so events from before a settings
 change still show the value they were judged against.
 
-![Congestion Deep Dive](../images/portal/dashboards/congestion-deep-dive-embed.png)
+![Congestion Deep Dive](../images/portal/dashboards/congestion-deep-dive.png)
 
 ### Foreign ID
 
 A foreign ID is a CAN ID that is not defined in the loaded DBC file, not
 learned into the baseline, and not listed under
-[Known CAN IDs](can-settings.md#known-can-ids-known-pgns). It can mean a
+[Known CAN IDs](settings.md#known-can-ids-and-known-pgns). It can mean a
 new or misconfigured ECU, a device left connected from an earlier test,
 or traffic that does not belong on the bus.
 
@@ -144,14 +168,14 @@ Before treating a foreign ID as a fault, check that it is not simply
 missing from your configuration. Adding it under Known CAN IDs stops the
 anomalies.
 
-![Foreign ID Deep Dive](../images/portal/dashboards/foreign-id-deep-dive-embed.png)
+![Foreign ID Deep Dive](../images/portal/dashboards/foreign-id-deep-dive.png)
 
 ### Bus error
 
 These are errors reported by the CAN controller itself, not anomalies
 derived from traffic patterns. A Bus Error anomaly fires when the number
 of error frames in a window exceeds the error rate threshold, both set in
-[Analyzer Settings](analyzer-settings.md#thresholds).
+[Settings](settings.md#anomaly-thresholds).
 
 **Error rate over time** breaks the errors down by class: TX timeout,
 lost arbitration, controller, protocol, transceiver, no ACK, bus off, bus
@@ -170,14 +194,22 @@ running counters, so they appear as isolated marks rather than a rate.
 The **Recent threshold events** table lists the windows that crossed the
 threshold, each with its own class breakdown.
 
-![CAN Errors Deep Dive](../images/portal/dashboards/can-errors-deep-dive-embed.png)
+![CAN Errors Deep Dive](../images/portal/dashboards/can-errors-deep-dive.png)
 
 ## Signal Explorer
 
-- **Selection**: how many signals are selected versus available, and a
-  summary table with one row per selected signal: CAN ID, message, signal,
-  unit, sample count, min, max, average, and range over the selected time
-  range. Pick signals from the **Signal** filter at the top.
-- **Signal time series**: a plot per selected signal.
+Signal Explorer plots decoded signals. **Available IDs** and **Available
+signals** count what was decoded in the time range.
 
-![Signal Explorer dashboard](../images/portal/dashboards/signal-explorer-embed.png)
+Select **Add graph** to add a graph, then pick one or more signals for it.
+Below each graph, a table lists every signal in it with its CAN
+ID, sample count, minimum, maximum, mean, and last value.
+
+Each graph has buttons in its top-right corner to show the data as a table,
+move the graph by dragging, edit its signals, remove it, and show it at
+full size.
+
+Signal Explorer draws every decoded sample, so a long time range can take a
+moment to load.
+
+![Signal Explorer dashboard](../images/portal/dashboards/signal-explorer.png)

@@ -70,7 +70,7 @@ You enter the key in the portal after you install Edge Insights. See
 - Each activation is tied to one device. One key can activate several
   devices, up to the limit shown under **Activations**.
 - To free an activation, deactivate the key on that device. See
-  [Licensing](../portal/index.md#licensing). You can also deactivate it on
+  [License](../portal/settings.md#license). You can also deactivate it on
   the [License keys](https://www.canedudev.com/my-account/api-keys/) page
   of your account, e.g. when you no longer have access to the device.
 

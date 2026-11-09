@@ -50,14 +50,20 @@ but they must not try to reconfigure it:
   from outside can leave it out of sync with what Edge Insights expects.
 
 If you need a tool to have exclusive control of the bus, e.g. to
-reconfigure bus parameters, stop capture first by toggling the bus off in
-the portal, then start your tool.
+reconfigure bus parameters, stop capture first with **Bring down** in
+[Settings](../portal/settings.md#interface), then start your tool.
+
+On Kvaser, a channel that another application has open shows **Open
+elsewhere** in the portal. Edge Insights can share the channel, and its
+settings stay editable. While the other application holds the channel,
+**Bring up** can fail, or the bus settings saved in the portal may not
+apply.
 
 ## The portal loads, but every save or upload fails
 
 The portal opens normally and shows current data, but any action that
-changes something, e.g. saving CAN settings, uploading a DBC file, or
-toggling an interface, shows a toast like "Failed to save CAN config. See
+changes something, e.g. saving settings, uploading a DBC file, or
+bringing an interface up, shows a toast like "Failed to save settings. See
 details." Expanding the details shows:
 
 ```json
