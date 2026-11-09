@@ -109,8 +109,7 @@ nav:
           - getting-started/first-run.md
   - Portal Guide:
       - portal/index.md
-      - portal/can-settings.md
-      - portal/analyzer-settings.md
+      - portal/settings.md
       - portal/dashboards.md
       - portal/import-log.md
       - portal/export-log.md

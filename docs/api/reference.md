@@ -238,7 +238,7 @@ of a time-range picker.
   "frames": 6100000,
   "stored_bytes": 36000000, "uncompressed_bytes": 146000000,
   "estimated_output_bytes": 322000000,
-  "max_file_bytes": 2147483648,
+  "max_file_bytes": 2000000000,
   "cut_points_us": []
 }
 ```
@@ -253,7 +253,7 @@ still holds for that interface.
 
 `estimated_output_bytes` is the size to show a user before they start a
 download. `max_file_bytes` is the unit's configured per-file limit (default
-2 GiB). When the estimate is larger than this limit, download the range in
+2 GB). When the estimate is larger than this limit, download the range in
 parts instead of one file.
 
 All numbers are estimates. `estimated_output_bytes` errs on the high side, so
