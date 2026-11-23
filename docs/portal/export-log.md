@@ -1,7 +1,7 @@
 # Export Log
 
-Export recorded raw CAN data as a candump `.log` file. Open it from
-**Export Log** in the portal sidebar.
+Export recorded raw CAN data as a SocketCAN `.log` file or an ASAM MF4
+`.mf4` file. Open it from **Export Log** in the portal sidebar.
 
 The form is on the left. The **Estimate** on the right shows the size of
 the export.
@@ -30,22 +30,41 @@ top of the page names the file in your Downloads folder.
 ### Large ranges
 
 The largest single export file is 2 GB. A range with a larger estimate
-exports as several `.log.zip` parts, one after another. The estimate shows
-how many parts, and the button reads **Export N parts**. Your browser may
-ask once to allow multiple downloads.
+exports as several parts, one after another. SocketCAN parts are `.log.zip`
+files, and MF4 parts are `.mf4` files. The estimate shows how many parts,
+and the button reads **Export N parts**. Your browser may ask once to allow
+multiple downloads.
 
 The **Parts** list shows the state of each part. Parts are saved oldest
 first. Select **Stop after current part** to stop. Parts already saved stay
-valid. If a part fails, select **Retry** next to it.
+valid. If a part fails, select **Retry** next to it. When the export ends
+with failed parts, select **Retry failed parts** to retry all of them.
 
 ## File format
 
-The file uses the candump `.log` format. Edge Insights and can-utils tools,
-such as `canplayer`, can read it. Error frames are written the way
-`candump -l` writes them, so the file imports again with its error frames.
+Select the format under **File Format**:
 
-On Windows, every line names the interface `can0`. can-utils tools reject
-the longer Kvaser channel names.
+- **SocketCAN (.log)**: the candump `.log` format. This is the default.
+- **ASAM MF4 (.mf4)**: the ASAM MDF 4 format. It makes the smallest files,
+  so the download is fastest. Use it for remote connections.
+
+### SocketCAN
+
+Edge Insights and can-utils tools, such as `canplayer`, can read the file.
+Error frames are written the way `candump -l` writes them, so the file
+imports again with its error frames.
+
+For a Kvaser channel, every line names the interface `can0`. can-utils
+tools reject the longer Kvaser channel names.
+
+### ASAM MF4
+
+MF4 files are much smaller than SocketCAN logs. They open in asammdf, in
+Vector and Kvaser tools, and in [Import Log](import-log.md).
+
+The file holds raw CAN frames, not decoded signal values. To get signal
+values, convert the file with your DBC file, e.g. in asammdf, CANape, or the
+Vector Logging Converter.
 
 ## Anomalies in this range
 

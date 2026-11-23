@@ -19,7 +19,8 @@ drivers or CANlib SDK aren't already installed, the installer detects
 this and installs them for you automatically.
 
 **Linux**: a SocketCAN-compatible CAN interface, or a virtual `vcan` bus
-if you just want to try Edge Insights without hardware attached. Ubuntu
+if you just want to try Edge Insights without hardware attached. Kvaser
+adapters also work through Kvaser CANlib, if it is installed. Ubuntu
 22.04+ or Debian 12+ is required; other systemd-based distributions may
 work but are untested. Needs `systemd` with user services
 (`systemctl --user`).

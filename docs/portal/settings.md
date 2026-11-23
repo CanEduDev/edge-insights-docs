@@ -15,6 +15,11 @@ interface at a time. If your hardware has more than one channel, choose the
 channel to use here. The badge next to the list shows whether the interface
 is up.
 
+On Linux, the list shows SocketCAN interfaces and, when Kvaser CANlib is
+installed, Kvaser channels. Select the refresh button next to the list to
+scan for interfaces again, e.g. after you connect an adapter or install the
+Kvaser drivers or CANlib.
+
 - **Bring up** starts capture on the selected interface. It can take up to
   10 seconds. The button stays disabled until a nominal bitrate is set. A
   device that joins a bus at the wrong bitrate disturbs the other devices
@@ -38,6 +43,9 @@ When you change a setting, a bar at the bottom of the page shows
 **Unsaved changes**. Select **Save** to apply the changes, or **Discard** to
 undo them. A change to the bus settings applies the next time you bring the
 interface up.
+
+When all interfaces are down, **Save** applies the changes to the interface
+selected in the list and makes it the configured interface.
 
 ### Missing interface
 
@@ -83,8 +91,9 @@ requirement does not apply to it.
 ### Decoding
 
 **DBC File** shows the DBC file in use and how many messages it defines.
-Select **Upload new** to replace it, or **Remove** to decode nothing. A DBC
-file decodes raw CAN frames into named signals.
+Select **Upload new** or drop a DBC file on the row to replace it. Select
+**Remove** to decode nothing. With no DBC file, drop a file on the row or
+select **browse**. A DBC file decodes raw CAN frames into named signals.
 
 Signals wider than 64 bits are skipped when the file loads. These describe
 payloads that are reassembled from several frames, which Edge Insights does

@@ -14,7 +14,8 @@ will do. Select **Start import** in the summary to run it.
 Drop a log file on the form, or select **browse**. Supported formats:
 candump (`.log`), MF4 (`.mf4`), Vector ASC (`.asc`), Kvaser text (`.txt`),
 and Kvaser Memorator (`.kme…`). CAN FD is supported only in candump and MF4
-files. The other formats carry classic CAN only.
+files. The other formats carry classic CAN only. Import Log reads only MF4
+files that hold raw CAN frames, not files of decoded signal values.
 
 The largest log file you can upload is 500 MB. A larger file is refused
 when you select it, with its size and the limit.
@@ -33,13 +34,21 @@ Choose the **Interface** to import into, its **Nominal bitrate**, and the
   past session. **Shift to current time** moves every frame so that the last
   one lands at the current time. This is useful for demos.
 - **DBC**: import with **No DBC**, keep the interface's current DBC file,
-  or select **Upload new** to replace it. The largest DBC file you can
-  upload is 10 MB. Demo data always uses its bundled DBC file.
+  or select **Upload new** to replace it. Then drop a DBC file on the form,
+  or select **browse**. The largest DBC file you can upload is 10 MB. Demo
+  data always uses its bundled DBC file.
 - **J1939 Mode**: turn it on if the log came from a J1939 bus. The setting
   applies with or without a DBC file. Demo data is classic CAN, so the
   option is off for it.
 - **Clear existing data for this interface first**: recommended, so that
   results are not mixed with earlier data.
+
+## Logs with more than one bus
+
+A log can hold frames from more than one bus. An import takes one bus.
+When you select **Start import** for such a log, a **Choose a bus** dialog
+lists the buses with the frame count of each. The bus with the most frames
+is selected. Select a bus, then select **Import**.
 
 ## Restrictions
 

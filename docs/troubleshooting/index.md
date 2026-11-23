@@ -23,10 +23,18 @@ sudo modprobe vcan
 sudo ip link add dev vcan0 type vcan
 ```
 
+Kvaser channels appear in the list only when Kvaser CANlib is installed. If
+you install CANlib while Edge Insights runs, select the refresh button next
+to the interface list in [Settings](../portal/settings.md#interface).
+
 **Windows**: open Kvaser Device Guide and confirm your Kvaser device
 appears there. If you just installed the Kvaser drivers, reboot your PC
 before checking again. A restart is often required before a newly
 installed device is enumerated.
+
+If the Kvaser drivers are not installed, Edge Insights starts with an empty
+interface list. Install the drivers, then select the refresh button next to
+the interface list.
 
 ## Sharing the CAN bus with other tools
 
