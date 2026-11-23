@@ -17,6 +17,8 @@ network, see
 - `systemd` with user services (`systemctl --user`)
 - The `can` kernel module, i.e. SocketCAN, also `vcan` if you want a virtual
   bus for testing without hardware
+- Optional: Kvaser CANlib, to use Kvaser adapters through CANlib. See
+  [Settings](../portal/settings.md#interface).
 - `sudo` / root access to install
 - About 1 GB of free disk space
 

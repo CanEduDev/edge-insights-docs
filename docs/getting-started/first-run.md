@@ -60,11 +60,12 @@ last step.
 
 5. **DBC file (optional)**: upload a DBC file so Edge Insights can decode
    raw CAN frames into named signals. The step shows the DBC file in use,
-   if there is one. Choose a file and select **Upload & continue**. Edge
-   Insights checks that the file is a valid DBC file, but uses it only when
-   you finish setup. If you return to this step, it shows the uploaded file
-   name and its number of messages. Select **Skip** to continue without a
-   DBC file. You can add or change the file later in Settings.
+   if there is one. Drop a DBC file on the step or select **browse**, then
+   select **Upload & continue**. Edge Insights checks that the file is a
+   valid DBC file, but uses it only when you finish setup. If you return to
+   this step, it shows the uploaded file name and its number of messages.
+   Select **Skip** to continue without a DBC file. You can add or change the
+   file later in Settings.
 
     ![Setup wizard: DBC file](../images/getting-started/setup-wizard-05-dbc-file.png)
 

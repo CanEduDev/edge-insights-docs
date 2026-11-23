@@ -86,7 +86,7 @@ curl -fs 'http://localhost:36300/api/v0/logs/interfaces'
 ## GET /api/v0/logs/raw { #logs-raw }
 
 Download recorded raw CAN frames over a time range, as a compact binary
-stream or transcoded to candump text.
+stream, or transcoded to candump text or an ASAM MF4 file.
 
 ### Query parameters
 
@@ -95,7 +95,7 @@ stream or transcoded to candump text.
 | `interface` | Yes | Interface name as the unit shows it. SocketCAN names such as `can0` and full Kvaser descriptions both work. The server normalizes them. |
 | `from` | No | Microsecond Unix timestamp. Exclusive lower bound on record timestamps. This is also the resume handle. |
 | `to` | No | Microsecond Unix timestamp. Exclusive upper bound. Defaults to now. |
-| `format` | No | Omit for the binary stream. Use `log` for candump text, or `log.zip` for candump text inside a zip archive. See [Output formats](#output-formats). |
+| `format` | No | Omit for the binary stream. Use `log` for candump text, `log.zip` for candump text inside a zip archive, or `mf4` for an ASAM MF4 file. See [Output formats](#output-formats). |
 | `part` | No | Requires `format`. 1-based part number of a segmented export. Only affects the download file name. |
 | `export_id` | No | Requires `format`. A token you choose (1 to 64 characters of `A-Z`, `a-z`, `0-9`, `_`, `-`) so you can follow the export with [`GET /api/v0/logs/export/status`](#export-status). |
 
@@ -114,7 +114,7 @@ curl -f -o kvaser.zst \
 
 ### Output formats
 
-The raw endpoint can return data in three formats.
+The raw endpoint can return data in four formats.
 
 **Binary stream (default).** Omit `format`. The body is the unit's stored
 records concatenated as a sequence of zstd frames. Standard zstd tooling
@@ -158,8 +158,22 @@ should stay compressed on disk. The archive is zip32: an entry that would
 exceed 4 GiB stops the stream, so slice large ranges into parts first (see
 [`raw/estimate`](#logs-estimate)).
 
-**The transcoding queue.** Transcoding to text uses one CPU core for the
-duration of the download, so **only one text export runs at a time**. Further
+**ASAM MF4 (`format=mf4`).** An ASAM MDF 4.10 bus-logging file
+(`Content-Type: application/octet-stream`, no transfer-layer compression).
+Data frames are in `CAN_DataFrame` channel groups, remote frames in
+`CAN_RemoteFrame`, and error frames in `CAN_ErrorFrame`. The record blocks
+are compressed, so the file is much smaller than candump text. asammdf,
+Vector and Kvaser tools, and the unit's importer read it. The file holds raw
+CAN frames, not decoded signal values.
+
+```bash
+# One hour of can0 as an MF4 file:
+curl -f -o can0.mf4 \
+  'http://localhost:36300/api/v0/logs/raw?interface=can0&format=mf4&from=1752700000000000&to=1752703600000000'
+```
+
+**The transcoding queue.** Transcoding uses one CPU core for the duration
+of the download, so **only one transcoded export runs at a time**. Further
 requests wait in a bounded queue. When the queue is full you get
 `429 export_queue_full`. Retry later.
 [`GET /api/v0/logs/export/status`](#export-status) reports the queue state
@@ -175,8 +189,8 @@ poll [`GET /api/v0/logs/export/status?id=<token>`](#export-status).
 | `400` | `invalid_request` | Missing `interface`, non-numeric `from` or `to`, `from` greater than `to`, or a duplicated query parameter. `from` equal to `to` is a valid empty range and returns `200` with an empty body. |
 | `404` | `no_data` | Nothing has ever been recorded on this unit. |
 | `404` | `unknown_interface` | No data has been recorded for that interface. This is the usual "nothing yet" answer. |
-| `413` | `export_too_large` | Text formats only. The estimated output is larger than the unit's configured limit. Download in parts. |
-| `429` | `export_queue_full` | Text formats only. A text export is already running and the wait queue is full. Retry later. |
+| `413` | `export_too_large` | Transcoded formats only. The estimated output is larger than the unit's configured limit. Download in parts. |
+| `429` | `export_queue_full` | Transcoded formats only. A transcoded export is already running and the wait queue is full. Retry later. |
 | `503` | `unavailable` | The storage backend is unreachable. |
 
 ## GET /api/v0/logs/decoded { #logs-decoded }
@@ -227,7 +241,7 @@ of a time-range picker.
 | `interface` | Yes | Interface name, same as [`logs/raw`](#logs-raw). |
 | `from` | No | Microsecond Unix timestamp, exclusive lower bound. |
 | `to` | No | Microsecond Unix timestamp, exclusive upper bound. Defaults to now. |
-| `format` | No | The output format to estimate for. Defaults to `log`. |
+| `format` | No | The output format to estimate for: `log`, `log.zip`, or `mf4`. Defaults to `log`. |
 | `segment_bytes` | No | When set, compute part boundaries for slicing. See [Slicing large exports](#slicing-large-exports). |
 
 ### Response
@@ -282,9 +296,8 @@ with the same meanings as [`logs/raw`](#logs-raw).
 
 ## GET /api/v0/logs/export/status { #export-status }
 
-Report the state of the text-transcoding export queue. Only the `format=log`
-and `format=log.zip` downloads are queued, so this endpoint concerns text
-exports; the binary stream is never queued.
+Report the state of the transcoding export queue. Only downloads with a
+`format` are queued. The binary stream is never queued.
 
 ### Query parameters
 
@@ -300,8 +313,8 @@ Without `id`, the response reports overall queue occupancy:
 { "active": true, "queued": 2 }
 ```
 
-`active` is whether a text export is currently running. `queued` is how many
-are waiting behind it.
+`active` is whether a transcoded export is currently running. `queued` is
+how many are waiting behind it.
 
 With `id=<token>`, the response also follows that specific export:
 
